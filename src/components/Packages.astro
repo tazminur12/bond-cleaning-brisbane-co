@@ -1,0 +1,21 @@
+---
+/** Three packages: Bond clean · Bond + carpet · Bond + carpet + flea (licensed partner). */
+import { flags } from '../config/site';
+import { t, price } from '../lib/tpl';
+const pk = [
+  { h: 'Bond clean', from: price('b2'), who: 'Units and houses without pets.', items: ['Every room to the agent\'s checklist', 'Oven, rangehood, tracks, fans, skirting', 'Room-by-room photo report and tax invoice', 'Free re-clean if the agent flags anything we cleaned'] },
+  { h: 'Bond + carpet', from: price('packageCarpet'), who: 'Carpets cleaned at move-in, or a clause in your lease.', feature: true, items: ['Everything in the bond clean', flags.freeCarpet ? t('Carpet steam clean {carpet}') : 'Carpet steam clean, hot water extraction', 'Spot stain treatment', 'Carpet receipt for your agent'] },
+  { h: 'Bond + carpet + flea', from: price('packagePet'), who: 'Dogs or cats in the lease.', items: ['Everything in bond + carpet', 'Pet hair from vents and skirting', 'Flea treatment by a licensed partner', 'Treatment certificate in your report'] },
+];
+---
+<div class="packages">
+  {pk.map((p, i) => (
+    <article class:list={['package', 'reveal', p.feature && 'package--feature']} style={`--i:${i}`}>
+      <h3>{p.h}</h3>
+      <p class="package__who">{p.who}</p>
+      <p class="package__price"><strong>{p.from}</strong> <span>2 bed, fixed</span></p>
+      <ul class="ticks package__ticks">{p.items.map((item) => <li set:html={item} />)}</ul>
+      <a class:list={['btn btn--block', p.feature ? 'btn--mint' : 'btn--secondary']} href="/contact/#quote" data-quote-link>Get my fixed price</a>
+    </article>
+  ))}
+</div>

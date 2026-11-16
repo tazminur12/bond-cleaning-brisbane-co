@@ -1,0 +1,26 @@
+---
+import { areaGroups } from '../config/site';
+import { areaBySlug, areaUrl } from '../lib/data';
+interface Props { current?: string; postcodes?: boolean; variant?: 'chips' | 'list' }
+const { current, postcodes = false, variant = 'chips' } = Astro.props;
+const isList = variant === 'list';
+---
+<div class:list={['area-groups', isList && 'area-groups--list']}>
+  {areaGroups.map((g) => (
+    <section class="area-group" aria-labelledby={`area-g-${g.key}`}>
+      <h3 id={`area-g-${g.key}`}>{g.name}</h3>
+      <ul class={isList ? 'area-list' : 'area-chips'}>
+        {g.slugs.map((slug) => {
+          const a = areaBySlug(slug);
+          return (
+            <li>
+              <a href={areaUrl(slug)} aria-current={current === slug ? 'page' : undefined}>
+                {isList ? <span>Bond cleaning {a.name}</span> : <>Bond cleaning {a.name}</>}{postcodes && <small>{a.pc}</small>}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+</div>

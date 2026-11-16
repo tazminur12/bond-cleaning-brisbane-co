@@ -1,0 +1,37 @@
+---
+import type { Faq } from '../data/faqs';
+import { t, flagOn } from '../lib/tpl';
+interface Props { items: Faq[]; openFirst?: boolean; columns?: 1 | 2 }
+const { items, openFirst = false, columns = 1 } = Astro.props;
+const list = items.filter((f) => !f.flag || flagOn(f.flag));
+const split = columns === 2;
+const mid = Math.ceil(list.length / 2);
+const cols = split ? [list.slice(0, mid), list.slice(mid)] : null;
+---
+<div class:list={['faq', split && 'faq--2']}>
+  {split && cols ? (
+    cols.map((group, gi) => (
+      <div class="faq__col">
+        {group.map((f, i) => (
+          <details class="faq__item" open={openFirst && gi === 0 && i === 0 || undefined}>
+            <summary class="faq__q">
+              <span class="faq__q-text" set:html={t(f.q)} />
+              <span class="faq__pm" aria-hidden="true"></span>
+            </summary>
+            <div class="faq__a"><p set:html={t(f.a)} /></div>
+          </details>
+        ))}
+      </div>
+    ))
+  ) : (
+    list.map((f, i) => (
+      <details class="faq__item" open={openFirst && i === 0 || undefined}>
+        <summary class="faq__q">
+          <span class="faq__q-text" set:html={t(f.q)} />
+          <span class="faq__pm" aria-hidden="true"></span>
+        </summary>
+        <div class="faq__a"><p set:html={t(f.a)} /></div>
+      </details>
+    ))
+  )}
+</div>

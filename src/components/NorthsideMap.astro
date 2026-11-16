@@ -1,0 +1,84 @@
+---
+/**
+ * Static Northside map illustration: navy lines on bg, mint dots for the 20 suburbs.
+ * Positions are projected from real coordinates; North Lakes sits above a scale break.
+ */
+import { areaBySlug, areaUrl } from '../lib/data';
+interface Props { compact?: boolean; current?: string; links?: boolean }
+const { compact = false, current, links = false } = Astro.props;
+
+const coords: Record<string, [number, number]> = {
+  'brisbane-city': [153.023, -27.469], 'fortitude-valley': [153.035, -27.457], 'new-farm': [153.048, -27.467],
+  newstead: [153.046, -27.446], 'bowen-hills': [153.036, -27.444], windsor: [153.029, -27.432], albion: [153.044, -27.43],
+  ascot: [153.062, -27.43], hamilton: [153.07, -27.438], kedron: [153.03, -27.405], chermside: [153.031, -27.385],
+  aspley: [153.019, -27.362], stafford: [153.01, -27.411], 'everton-park': [152.99, -27.401], mitchelton: [152.976, -27.416],
+  nundah: [153.059, -27.401], 'wavell-heights': [153.047, -27.389], carseldine: [153.02, -27.346], 'bracken-ridge': [153.035, -27.317],
+  'north-lakes': [153.02, -27.24],
+};
+const X = (lon: number) => 24 + ((lon - 152.955) / 0.13) * 352;
+const Y = (lat: number) => (lat > -27.3 ? 30 : 92 + ((-27.3 - lat) / 0.18) * 318);
+const pts = (list: [number, number][]) => list.map(([lo, la]) => `${X(lo).toFixed(1)},${Y(la).toFixed(1)}`).join(' ');
+const river = pts([[152.955, -27.488], [152.99, -27.482], [153.008, -27.474], [153.018, -27.479], [153.03, -27.476], [153.036, -27.466], [153.042, -27.476], [153.052, -27.471], [153.056, -27.459], [153.05, -27.451], [153.062, -27.446], [153.075, -27.441], [153.085, -27.432]]);
+const brook = pts([[152.968, -27.42], [152.99, -27.414], [153.01, -27.408], [153.03, -27.402], [153.05, -27.405], [153.07, -27.402], [153.085, -27.398]]);
+const gympie = pts([[153.03, -27.45], [153.03, -27.42], [153.028, -27.39], [153.022, -27.36], [153.02, -27.33], [153.025, -27.305]]);
+const labels = !compact;
+const slugs = Object.keys(coords);
+const labelLeft = new Set(['chermside', 'windsor', 'bowen-hills', 'brisbane-city']);
+const labelBelow = new Set(['stafford']);
+const uid = `nm${Math.random().toString(36).slice(2, 8)}`;
+const font = 'General Sans, system-ui, sans-serif';
+---
+<svg viewBox="0 0 400 440" role="img" aria-labelledby={`${uid}-title`} class:list={['northside-map', compact && 'northside-map--compact']}>
+  <title id={`${uid}-title`}>Map of the 20 Brisbane Northside and inner north suburbs we clean</title>
+  <defs>
+    <linearGradient id={`${uid}-bg`} x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F9FBFD" />
+      <stop offset="1" stop-color="#ECF2F6" />
+    </linearGradient>
+    <pattern id={`${uid}-grid`} width="22" height="22" patternUnits="userSpaceOnUse">
+      <path d="M22 0H0V22" fill="none" stroke="#12304A" stroke-opacity=".045" stroke-width="1" />
+    </pattern>
+    <linearGradient id={`${uid}-river`} x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9DBBD2" />
+      <stop offset="1" stop-color="#C3D7E6" />
+    </linearGradient>
+    <radialGradient id={`${uid}-glow`}>
+      <stop offset="0" stop-color="#3DDC97" stop-opacity=".42" />
+      <stop offset="1" stop-color="#3DDC97" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="400" height="440" rx="18" fill={`url(#${uid}-bg)`} />
+  <rect x="0" y="0" width="400" height="440" rx="18" fill={`url(#${uid}-grid)`} />
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 18 62 H 382" stroke="#12304A" stroke-opacity=".14" stroke-width="1" stroke-dasharray="3 5" />
+    <polyline points={river} stroke="#fff" stroke-width="14" />
+    <polyline points={river} stroke={`url(#${uid}-river)`} stroke-width="8" />
+    <polyline points={brook} stroke="#fff" stroke-width="5" />
+    <polyline points={brook} stroke="#BFD1DF" stroke-width="2.5" />
+    <polyline points={gympie} stroke="#24506F" stroke-width="1.5" stroke-dasharray="4 5" opacity=".5" />
+    <path d="M 290 46 L 290 80" stroke="#24506F" stroke-width="1.5" stroke-dasharray="2 4" opacity=".55" />
+  </g>
+  {labels && <text class="nm-note" x="298" y="56" font-size="9.5" font-family={font}>Moreton Bay ↑</text>}
+  {labels && <text class="nm-note" x="48" y="430" font-size="9.5" font-family={font}>Brisbane River</text>}
+  {labels && <text class="nm-note" x="221" y="164" font-size="9.5" font-family={font} transform="rotate(-84 221 164)">Gympie Rd</text>}
+  {slugs.map((slug) => {
+    const a = areaBySlug(slug);
+    const [lo, la] = coords[slug];
+    const cx = slug === 'north-lakes' ? 230 : X(lo);
+    const cy = Y(la);
+    const isCur = current === slug;
+    const left = labelLeft.has(slug);
+    const below = labelBelow.has(slug);
+    const dot = (
+      <g class:list={['nm-dot', isCur && 'nm-dot--current']}>
+        <title>{`${a.name} ${a.pc}`}</title>
+        <circle class="nm-dot__glow" cx={cx} cy={cy} r={isCur ? 16 : 11} fill={`url(#${uid}-glow)`} />
+        <circle class="nm-dot__core" cx={cx} cy={cy} r={isCur ? 6.5 : 4.75} fill={isCur ? '#12304A' : '#3DDC97'} stroke={isCur ? '#3DDC97' : '#fff'} stroke-width={isCur ? 2.5 : 2} />
+        {labels && (
+          <text class="nm-label" x={below ? cx : left ? cx - 9 : cx + 9} y={below ? cy + 17 : cy + 3.5} text-anchor={below ? 'middle' : left ? 'end' : 'start'} font-size="10" font-weight={isCur ? 700 : 600} font-family={font}>{a.name}</text>
+        )}
+      </g>
+    );
+    return links ? <a href={areaUrl(slug)} aria-label={`Bond cleaning ${a.name}`}>{dot}</a> : dot;
+  })}
+</svg>
