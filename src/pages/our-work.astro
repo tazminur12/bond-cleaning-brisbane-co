@@ -18,7 +18,7 @@ const svcName = (url: string) => serviceBySlug(url.replace(/\//g, '')).name;
     <Fragment slot="aside"><BeforeAfter beforeAlt="Bond cleaning before and after: the oven door glass before, covered in baked-on grease" afterAlt="Bond cleaning before and after: the same oven door glass after, clean and clear" caption="Drag the handle: oven door glass, before and after our bond clean." /></Fragment>
   </PageHero>
 
-  <section class="section section--bg" aria-labelledby="gal-h2">
+  <section class="section section--bg section--work" aria-labelledby="gal-h2">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">Gallery</p>
@@ -29,27 +29,31 @@ const svcName = (url: string) => serviceBySlug(url.replace(/\//g, '')).name;
         <button type="button" aria-pressed="true" data-filter="all">All</button>
         {rooms.map((r) => <button type="button" aria-pressed="false" data-filter={r}>{r}</button>)}
       </div>
-      <ul class="photo-grid" role="list" data-gallery>
+      <ul class="photo-grid work-grid" role="list" data-gallery>
         {photoOrder.map((k) => (
-          <li data-room-item={photos[k].room}>
-            <PhotoFigure k={k} />
-            <p class="small mb-0"><a href={photos[k].service}>{svcName(photos[k].service)}</a></p>
+          <li class="photo-grid__item work-item" data-room-item={photos[k].room}>
+            <article class="work-card">
+              <PhotoFigure k={k} />
+              <p class="work-card__svc"><a href={photos[k].service}>{svcName(photos[k].service)}</a></p>
+            </article>
           </li>
         ))}
       </ul>
-      <p class="mt-2 small muted">New jobs are added as they happen, with the suburb and service. Want to see a result for your type of property? Ask us when you send your photos.</p>
+      <p class="work-foot">New jobs are added as they happen, with the suburb and service. Want to see a result for your type of property? Ask us when you send your photos.</p>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="rep-h2">
+  <section class="section section--report" aria-labelledby="rep-h2">
     <div class="container">
-      <div class="split">
-        <div>
+      <div class="report-layout">
+        <div class="report-copy">
           <p class="eyebrow">Every job</p>
           <h2 id="rep-h2">The same photos go in your report</h2>
           <p class="lead">Every bond clean ends with a dated, room-by-room photo report and tax invoice, emailed the same day. Share it with your agent, keep it for your records, or post it in the group chat when someone asks for a bond cleaner.</p>
         </div>
-        <PhotoReport />
+        <div class="report-visual">
+          <PhotoReport />
+        </div>
       </div>
     </div>
   </section>

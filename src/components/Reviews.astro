@@ -10,20 +10,33 @@ interface Props { h2?: string; limit?: number }
 const { h2 = 'What our customers say on Google', limit = 6 } = Astro.props;
 type Review = { name: string; suburb?: string; date: string; text: string; url?: string };
 const list = (reviews as Review[]).slice(0, limit);
+const fmt = (d: string) => new Date(d).toLocaleDateString('en-AU', { month: 'long', year: 'numeric' });
 ---
 {list.length > 0 && (
-  <section class="section" aria-labelledby="reviews-h2">
+  <section class="section section--reviews" aria-labelledby="reviews-h2">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">Google reviews</p><h2 id="reviews-h2">{h2}</h2></div>
-      <div class="grid grid-3">
-        {list.map((r) => (
-          <figure class="card mb-0">
-            <blockquote style="margin:0">{r.text}</blockquote>
-            <figcaption class="muted small" style="margin-top:1rem">{r.name}{r.suburb && `, ${r.suburb}`} · {new Date(r.date).toLocaleDateString('en-AU', { month: 'long', year: 'numeric' })}{r.url && <> · <a href={r.url} rel="noopener" target="_blank">View on Google</a></>}</figcaption>
+      <div class="section-head">
+        <p class="eyebrow">Google reviews</p>
+        <h2 id="reviews-h2">{h2}</h2>
+      </div>
+      <div class="reviews-grid">
+        {list.map((r, i) => (
+          <figure class="review-card reveal" style={`--i:${i % 3}`}>
+            <span class="review-card__mark" aria-hidden="true">“</span>
+            <blockquote class="review-card__quote">{r.text}</blockquote>
+            <figcaption class="review-card__meta">
+              <span class="review-card__who">{r.name}{r.suburb && `, ${r.suburb}`}</span>
+              <span class="review-card__date">{fmt(r.date)}</span>
+              {r.url && (
+                <a class="review-card__link" href={r.url} rel="noopener" target="_blank">View on Google</a>
+              )}
+            </figcaption>
           </figure>
         ))}
       </div>
-      {business.gbpReviewLink && !business.gbpReviewLink.includes('[') && <p class="mt-2"><a href={business.gbpReviewLink} rel="noopener" target="_blank">Read all our Google reviews</a></p>}
+      {business.gbpReviewLink && !business.gbpReviewLink.includes('[') && (
+        <p class="reviews-foot"><a href={business.gbpReviewLink} rel="noopener" target="_blank">Read all our Google reviews</a></p>
+      )}
     </div>
   </section>
 )}
