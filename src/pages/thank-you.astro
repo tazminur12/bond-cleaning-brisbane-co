@@ -14,22 +14,45 @@ import { telHref, waHref, t } from '../lib/tpl';
       <a class="btn btn--secondary btn--lg" href={waHref('Hi, I just sent a quote request. Here are some photos:')} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="thank-you"><Icon name="whatsapp" />Send more photos</a>
     </div>
     <Fragment slot="aside">
-      <div class="card">
-        <h2 style="font-size:var(--fs-h3)">What happens next</h2>
-        <ol class="walk">
-          <li><h3>Your fixed price</h3><p set:html={t('By text or your chosen channel, within {replyTime} during business hours.')} /></li>
-          <li><h3>Written confirmation</h3><p>Date, arrival window, what's included and what isn't.</p></li>
-          <li><h3>The clean and your photo report</h3><p>Emailed the same day with your tax invoice.</p></li>
-          <li><h3>The agent signs off</h3><p>If they send a list, forward it and we come back free.</p></li>
-        </ol>
+      <div class="thank-hero-aside">
+        <img
+          class="thank-hero-aside__seal"
+          src="/images/brand/seal.svg"
+          alt="Bond Cleaning Brisbane Co. Inspection Ready seal"
+          width="200"
+          height="200"
+          decoding="async"
+        />
       </div>
     </Fragment>
   </PageHero>
-  <section class="section section--bg">
+
+  <section class="section section--sand section--thank-next" aria-labelledby="next-h2">
     <div class="container">
-      <div class="grid grid-2">
-        <div class="card"><h2 style="font-size:var(--fs-h3)">While you wait</h2><p>Tick through the <a href="/bond-cleaning-checklist/">QLD bond cleaning checklist</a>, or read <a href="/blog/what-brisbane-property-managers-check-at-a-final-inspection/">what property managers check at a final inspection</a>.</p></div>
-        <div class="card"><h2 style="font-size:var(--fs-h3)">Got your bond back?</h2><p>If we've already cleaned for you, a short Google review helps other renters find a cleaner they can trust.</p><a class="btn btn--secondary" href={business.gbpReviewLink} rel="noopener">Leave a Google review</a></div>
+      <div class="thank-next__intro">
+        <h2 id="next-h2">What happens next</h2>
+      </div>
+      <ol class="walk thank-next__walk">
+        <li class="reveal" style="--i:0"><h3>Your fixed price</h3><p set:html={t('By text or your chosen channel, within {replyTime} during business hours.')} /></li>
+        <li class="reveal" style="--i:1"><h3>Written confirmation</h3><p>Date, arrival window, what's included and what isn't.</p></li>
+        <li class="reveal" style="--i:0"><h3>The clean and your photo report</h3><p>Emailed the same day with your tax invoice.</p></li>
+        <li class="reveal" style="--i:1"><h3>The agent signs off</h3><p>If they send a list, forward it and we come back free.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--thank-more" aria-labelledby="wait-h2">
+    <div class="container">
+      <div class="thank-more">
+        <article class="thank-card reveal" style="--i:0">
+          <h2 id="wait-h2">While you wait</h2>
+          <p>Tick through the <a href="/bond-cleaning-checklist/">QLD bond cleaning checklist</a>, or read <a href="/blog/what-brisbane-property-managers-check-at-a-final-inspection/">what property managers check at a final inspection</a>.</p>
+        </article>
+        <article class="thank-card thank-card--navy reveal" style="--i:1">
+          <h2>Got your bond back?</h2>
+          <p>If we've already cleaned for you, a short Google review helps other renters find a cleaner they can trust.</p>
+          <a class="btn btn--mint" href={business.gbpReviewLink} rel="noopener">Leave a Google review</a>
+        </article>
       </div>
     </div>
   </section>

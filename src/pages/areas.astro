@@ -18,30 +18,46 @@ const blurb: Record<string, string> = {
 <BaseLayout title="Areas We Clean | Bond Cleaning Brisbane Co." description="Bond cleaning across Brisbane's Northside and inner north: 20 suburbs from Brisbane City and New Farm to Chermside, Aspley and North Lakes, each with local access notes." crumbs={crumbs}>
   <PageHero eyebrow="Northside and inner north only" h1="Bond Cleaning Across Brisbane's Northside">
     <p class="lead">We do bond cleaning in North Brisbane and the inner north only: 20 suburbs, from the CBD and New Farm up Gympie Road and Sandgate Road to Chermside, Aspley and North Lakes. Our bond cleaners in North Brisbane work these streets every week, so we know which towers need a lift booking, which Queenslanders have a downstairs laundry and which agencies inspect hardest.</p>
-    <Fragment slot="aside"><div class="map-card" role="img" aria-label="Bond cleaning north Brisbane: map of the 20 Northside and inner north suburbs we clean"><NorthsideMap /></div></Fragment>
+    <Fragment slot="aside">
+      <div class="map-card areas-hub-map" role="img" aria-label="Bond cleaning north Brisbane: map of the 20 Northside and inner north suburbs we clean">
+        <NorthsideMap links />
+      </div>
+    </Fragment>
   </PageHero>
-  <section class="section section--bg" aria-labelledby="groups-h2">
+
+  <section class="section section--areas section--areas-hub" aria-labelledby="groups-h2">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">By region</p><h2 id="groups-h2">Bond cleaning North Brisbane, by region</h2></div>
-      <div class="grid grid-2">
-        {areaGroups.map((g) => (
-          <div class="card">
+      <div class="section-head areas-intro">
+        <p class="eyebrow">By region</p>
+        <h2 id="groups-h2">Bond cleaning North Brisbane, by region</h2>
+      </div>
+      <div class="areas-hub-grid">
+        {areaGroups.map((g, i) => (
+          <article class="areas-hub-card reveal" style={`--i:${i % 2}`}>
             <p class="eyebrow">{g.name}</p>
             <h3>{g.name} Brisbane</h3>
-            <p class="muted">{blurb[g.key]}</p>
-            <ul class="list-inline" style="display:grid;gap:8px">
+            <p class="areas-hub-card__blurb">{blurb[g.key]}</p>
+            <ul class="areas-hub-list">
               {g.slugs.map((s) => {
                 const a = areaBySlug(s);
-                return <li><a href={areaUrl(s)}>Bond cleaning {a.name}</a> <span class="muted small">{a.pc} · {a.homes}</span></li>;
+                return (
+                  <li>
+                    <a href={areaUrl(s)}>
+                      <span class="areas-hub-list__name">Bond cleaning {a.name}</span>
+                      <span class="areas-hub-list__meta">{a.pc} · {a.homes}</span>
+                    </a>
+                  </li>
+                );
               })}
             </ul>
-          </div>
+          </article>
         ))}
       </div>
-      <div class="notice mt-3">
+      <div class="areas-hub-notice" role="note">
         <p class="mb-0"><strong>Not on the list?</strong> Call us on <a href={telHref()}>{business.phone}</a>. We may still be able to help if you're close to one of these suburbs. We don't clean the Southside under this brand.</p>
       </div>
     </div>
   </section>
+
   <CtaBand />
 </BaseLayout>

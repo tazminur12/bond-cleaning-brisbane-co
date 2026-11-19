@@ -24,25 +24,31 @@ const groupP: Record<string, string> = {
   <PageHero eyebrow="Bond cleans only" h1="Our Bond Cleaning Services">
     <p class="lead">Our bond cleaning services in Brisbane cover one job done properly: getting your rental back to its entry condition so your bond comes back. A bond clean, end of lease clean, vacate clean and exit clean are all the same thing. Every service below comes with a fixed price, a photo report and the re-clean promise.</p>
     <PromiseChips />
-    <Fragment slot="aside"><img src="/images/brand/seal.svg" alt="Bond cleaning services Brisbane: the Inspection Ready seal from Bond Cleaning Brisbane Co." width="260" height="260" style="width:min(240px,60%);margin:24px auto 0" /></Fragment>
+    <Fragment slot="aside"><img class="page-hero__seal" src="/images/brand/seal.svg" alt="Bond cleaning services Brisbane: the Inspection Ready seal from Bond Cleaning Brisbane Co." width="260" height="260" loading="lazy" decoding="async" /></Fragment>
   </PageHero>
   {serviceGroups.map((g, gi) => (
-    <section class:list={['section', gi % 2 === 0 && 'section--bg']} aria-labelledby={`g-${g.key}`}>
+    <section class:list={['section', 'section--services', gi % 2 === 0 ? 'section--bg' : '']} aria-labelledby={`g-${g.key}`}>
       <div class="container">
-        <div class="section-head"><p class="eyebrow">{g.name}</p><h2 id={`g-${g.key}`}>{groupH2[g.key]}</h2><p>{groupP[g.key]}</p></div>
-        <div class="grid grid-3">
-          {servicesInGroup(g.key).map((s) => {
+        <div class="section-head">
+          <p class="eyebrow">{g.name}</p>
+          <h2 id={`g-${g.key}`}>{groupH2[g.key]}</h2>
+          <p>{groupP[g.key]}</p>
+        </div>
+        <ul class="svc-grid" role="list">
+          {servicesInGroup(g.key).map((s, i) => {
             const c = serviceContent[s.slug];
             return (
-              <article class="card card--link">
-                <div class="icon-wrap"><Icon name={c.icon} /></div>
-                <h3 style="font-size:1.1875rem">{s.name}</h3>
-                <p class="muted mb-0">{c.short}.</p>
-                <a class="card__more" href={s.url}>{kwAnchor(s)} <Icon name="arrowRight" /></a>
-              </article>
+              <li>
+                <article class="svc-card svc-card--hub reveal" style={`--i:${i % 4}`}>
+                  <div class="svc-card__icon" aria-hidden="true"><Icon name={c.icon} /></div>
+                  <h3 class="svc-card__title">{s.name}</h3>
+                  <p class="svc-card__desc">{c.short}.</p>
+                  <a class="area-svc-link" href={s.url}>{kwAnchor(s)}</a>
+                </article>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   ))}

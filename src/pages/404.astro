@@ -12,7 +12,30 @@ const top = [
 <BaseLayout title="Page Not Found | Bond Cleaning Brisbane Co." description="That page doesn't exist. Find bond cleaning services and areas, or call us." noindex>
   <PageHero eyebrow="404" h1="This page has moved out">
     <p class="lead">Unlike your bond, this one isn't coming back. Try one of these, or call us and we'll help directly.</p>
-    <div class="btn-row"><a class="btn btn--primary btn--lg" href="/">Go to the homepage</a><a class="btn btn--secondary btn--lg" href={telHref()}><Icon name="phone" />Call {business.phone}</a></div>
-    <ul class="area-chips mt-2">{top.map(([h, l]) => <li><a href={h}>{l}</a></li>)}<li><a href="/areas/">Areas we clean</a></li></ul>
+    <div class="btn-row">
+      <a class="btn btn--primary btn--lg" href="/">Go to the homepage</a>
+      <a class="btn btn--secondary btn--lg" href={telHref()}><Icon name="phone" />Call {business.phone}</a>
+    </div>
+    <Fragment slot="aside">
+      <div class="notfound-aside">
+        <img
+          class="notfound-aside__seal"
+          src="/images/brand/seal.svg"
+          alt="Bond Cleaning Brisbane Co. Inspection Ready seal"
+          width="180"
+          height="180"
+          decoding="async"
+        />
+      </div>
+    </Fragment>
   </PageHero>
+
+  <section class="section section--sand section--notfound" aria-label="Helpful links">
+    <div class="container">
+      <ul class="notfound-links">
+        {top.map(([h, l]) => <li><a href={h}>{l}</a></li>)}
+        <li><a href="/areas/">Areas we clean</a></li>
+      </ul>
+    </div>
+  </section>
 </BaseLayout>

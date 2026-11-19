@@ -17,20 +17,24 @@ const hid = `${s.id ?? 'sec'}-${i}-h2`;
 const wide = s.component === 'packages' || s.component === 'houseTable' || s.component === 'apartmentTable' || s.component === 'moveTimeline';
 const side = s.component && !wide;
 ---
-<section class:list={['section', bg]} id={s.id} aria-labelledby={hid}>
+<section class:list={['section', 'section--svc-block', bg]} id={s.id} aria-labelledby={hid}>
   <div class="container">
-    <div class:list={[side && 'split split--top']}>
-      <div class:list={[!side && !wide && 'prose', wide && 'section-head']} style={wide ? 'max-width:820px' : undefined}>
+    <div class:list={[side && 'svc-block', !side && !wide && 'svc-block--solo', wide && 'svc-block--wide']}>
+      <div class="svc-block__copy">
         {s.eyebrow && <p class="eyebrow">{t(s.eyebrow)}</p>}
         <h2 id={hid} set:html={t(s.h2)} />
-        <div class="prose" set:html={t(s.html)} />
+        <div class:list={['svc-block__body', (side || !wide) && 'prose']} set:html={t(s.html)} />
       </div>
-      {s.component === 'photoReport' && <div class="reveal"><PhotoReport /></div>}
-      {s.component === 'askBox' && <AskBox h3 />}
-      {s.component === 'partnerForm' && <PartnerForm />}
-      {s.component === 'beforeArrive' && <BeforeArrive />}
-      {s.component === 'noNeed' && <NoNeed />}
-      {s.component === 'seal' && <img src="/images/brand/seal.svg" alt="Inspection Ready seal: our re-clean guarantee" width="280" height="280" loading="lazy" style="margin-inline:auto;width:min(280px,70%)" />}
+      {s.component === 'photoReport' && <div class="svc-block__side reveal"><PhotoReport /></div>}
+      {s.component === 'askBox' && <div class="svc-block__side"><AskBox h3 /></div>}
+      {s.component === 'partnerForm' && <div class="svc-block__side"><PartnerForm /></div>}
+      {s.component === 'beforeArrive' && <div class="svc-block__side"><BeforeArrive /></div>}
+      {s.component === 'noNeed' && <div class="svc-block__side"><NoNeed /></div>}
+      {s.component === 'seal' && (
+        <div class="svc-block__side svc-block__seal">
+          <img src="/images/brand/seal.svg" alt="Inspection Ready seal: our re-clean guarantee" width="280" height="280" loading="lazy" decoding="async" />
+        </div>
+      )}
     </div>
     {s.component === 'packages' && <Packages />}
     {s.component === 'houseTable' && <PriceCards only={['b3', 'b4', 'b5']} />}

@@ -38,13 +38,14 @@ const schema = [
   faqPage(faqs),
 ];
 const waMsg = `Hi, I'd like a bond clean quote for a [x] bed in ${area.name}`;
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
 <BaseLayout title={area.title} description={area.meta} crumbs={crumbs} schema={schema}>
   <Fragment set:html={`<!-- Intent tier ${c.tier} · ${area.primary} · persona: ${c.persona} -->`} />
   <section class="page-hero">
     <div class="container">
       <div class="page-hero__grid">
-        <div>
+        <div class="page-hero__copy">
           <p class="eyebrow">{group.name} · {area.name} {area.pc}</p>
           <h1>{area.h1}</h1>
           <div class="lead hero__lead" set:html={t(c.intro)} />
@@ -56,17 +57,17 @@ const waMsg = `Hi, I'd like a bond clean quote for a [x] bed in ${area.name}`;
           <PromiseChips />
           <TrustRow />
         </div>
-        <div>
+        <div class="page-hero__aside">
           <QuoteForm id="qt" anchor suburb={area.name} location={`${area.slug}-top`} title={`Get your ${area.name} price`} />
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--bg" aria-labelledby="local-h2">
+  <section class="section section--bg section--area-local" aria-labelledby="local-h2">
     <div class="container">
-      <div class="split split--top">
-        <div class="prose">
+      <div class="area-local">
+        <div class="area-local__copy prose">
           <p class="eyebrow">Local knowledge</p>
           <h2 id="local-h2">{c.local.h2}</h2>
           {c.local.paras.map((p) => <p set:html={t(p)} />)}
@@ -76,25 +77,29 @@ const waMsg = `Hi, I'd like a bond clean quote for a [x] bed in ${area.name}`;
           <div set:html={t(c.checks.html)} />
           <ul class="ticks">{c.checks.items.map((i) => <li>{i}</li>)}</ul>
         </div>
-        <div class="map-card reveal" role="img" aria-label={`Bond cleaning ${area.name}: map of ${area.name} ${area.pc} and the nearby suburbs we clean`}>
-          <NorthsideMap current={area.slug} links />
-          <p class="small muted shared" style="margin:10px 4px 0">{area.name} {area.pc} and the 19 other suburbs on our Northside runs.</p>
-        </div>
+        <aside class="area-local__map">
+          <div class="map-card reveal" role="img" aria-label={`Bond cleaning ${area.name}: map of ${area.name} ${area.pc} and the nearby suburbs we clean`}>
+            <NorthsideMap current={area.slug} links />
+            <p class="area-local__map-note">{area.name} {area.pc} and the 19 other suburbs on our Northside runs.</p>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
 
   <RealJob job={c.realJob} suburb={area.name} />
 
-  <section class="section" aria-labelledby="extra-h2">
-    <div class="container prose">
-      <p class="eyebrow">{area.name} specifics</p>
-      <h2 id="extra-h2">{c.extra.h2}</h2>
-      <div set:html={t(c.extra.html)} />
+  <section class="section section--sand section--area-extra" aria-labelledby="extra-h2">
+    <div class="container">
+      <div class="area-extra">
+        <p class="eyebrow">{area.name} specifics</p>
+        <h2 id="extra-h2">{c.extra.h2}</h2>
+        <div class="area-extra__body prose" set:html={t(c.extra.html)} />
+      </div>
     </div>
   </section>
 
-  <section class="section section--bg" aria-labelledby="inc-h2">
+  <section class="section section--bg section--included" aria-labelledby="inc-h2">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">What's included</p>
@@ -105,7 +110,7 @@ const waMsg = `Hi, I'd like a bond clean quote for a [x] bed in ${area.name}`;
     </div>
   </section>
 
-  <section class="section" aria-labelledby="ba-h2">
+  <section class="section section--area-photos" aria-labelledby="ba-h2">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">Before and after</p>
@@ -118,48 +123,52 @@ const waMsg = `Hi, I'd like a bond clean quote for a [x] bed in ${area.name}`;
 
   <Steps bg />
 
-  <section class="section" aria-labelledby="svc-h2">
+  <section class="section section--services" aria-labelledby="svc-h2">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">Services</p>
         <h2 id="svc-h2">{c.servicesH2}</h2>
       </div>
-      <div class="grid grid-3">
-        {c.services.map((s) => {
+      <ul class="svc-grid area-svc-grid" role="list">
+        {c.services.map((s, i) => {
           const svc = serviceBySlug(s.slug);
           return (
-            <article class="card card--flat">
-              <h3 style="font-size:1.125rem">{svc.name}</h3>
-              <p class="muted small">{s.why[0].toUpperCase() + s.why.slice(1)}.</p>
-              <a class="card__more" href={svc.url}>{s.anchor[0].toUpperCase() + s.anchor.slice(1)}</a>
-            </article>
+            <li>
+              <article class="svc-card reveal" style={`--i:${i % 3}`}>
+                <h3 class="svc-card__title">{svc.name}</h3>
+                <p class="svc-card__desc">{cap(s.why)}.</p>
+                <a class="area-svc-link" href={svc.url}>{cap(s.anchor)}</a>
+              </article>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </div>
   </section>
 
-  <section class="section section--bg" aria-labelledby="faq-h2">
-    <div class="container container--narrow">
+  <section class="section section--bg section--faq" aria-labelledby="faq-h2">
+    <div class="container">
       <div class="section-head">
         <p class="eyebrow">Questions</p>
         <h2 id="faq-h2">{area.name} bond clean questions</h2>
       </div>
-      <FaqList items={faqs} />
+      <FaqList items={faqs} columns={2} />
     </div>
   </section>
 
-  <section class="section" aria-labelledby="near-h2">
+  <section class="section section--areas section--area-near" aria-labelledby="near-h2">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head areas-intro">
         <p class="eyebrow">Nearby</p>
         <h2 id="near-h2">Nearby areas we clean</h2>
         <p>{c.nearbyIntro}</p>
       </div>
-      <ul class="area-chips">
-        {area.near.map((slug) => <li><a href={areaUrl(slug)}>Bond cleaning {areaBySlug(slug).name}</a></li>)}
-      </ul>
-      <p class="mt-2 shared">New to us? Start with how our <a href="/">bond cleaning Brisbane</a> service works, or see <a href="/areas/">all 20 areas we clean</a>.</p>
+      <div class="area-near">
+        <ul class="area-chips">
+          {area.near.map((slug) => <li><a href={areaUrl(slug)}>Bond cleaning {areaBySlug(slug).name}</a></li>)}
+        </ul>
+        <p class="area-near__foot shared">New to us? Start with how our <a href="/">bond cleaning Brisbane</a> service works, or see <a href="/areas/">all 20 areas we clean</a>.</p>
+      </div>
     </div>
   </section>
 

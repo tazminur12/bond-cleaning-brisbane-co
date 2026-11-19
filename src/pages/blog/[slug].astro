@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FaqList from '../../components/FaqList.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import QuoteForm from '../../components/QuoteForm.astro';
+import Icon from '../../components/Icon.astro';
 import { posts, type Post } from '../../content/blog';
 import { business } from '../../config/site';
 import { article, faqPage } from '../../lib/schema';
@@ -15,42 +16,71 @@ const { post } = Astro.props as { post: Post };
 const url = `/blog/${post.slug}/`;
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Guides', href: '/blog/' }, { name: post.title, href: url }];
 const others = posts.filter((p) => p.slug !== post.slug);
+const published = new Date(post.published).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 <BaseLayout title={`${post.title} | ${business.name}`} description={post.description} crumbs={crumbs} ogType="article" schema={[article({ title: post.title, description: post.description, url, published: post.published }), faqPage(post.faqs)]}>
   <Fragment set:html={`<!-- Intent tier 4 · ${post.query} -->`} />
-  <article>
-    <header class="page-hero">
-      <div class="container article-head">
-        <p class="eyebrow">Guide</p>
-        <h1>{post.title}</h1>
-        <p class="article-meta"><span>By {business.name}</span><time datetime={post.published}>{new Date(post.published).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}</time><span>{post.readMins} min read</span></p>
-      </div>
-    </header>
-    <div class="section section--tight" style="padding-top:0">
+  <article class="blog-article">
+    <header class="page-hero page-hero--article">
       <div class="container">
-        <div class="split split--top" style="grid-template-columns:minmax(0,1fr)">
-          <div class="prose" set:html={post.html} />
+        <div class="article-head">
+          <p class="eyebrow">Guide</p>
+          <h1>{post.title}</h1>
+          <p class="article-meta">
+            <span>By {business.name}</span>
+            <time datetime={post.published}>{published}</time>
+            <span>{post.readMins} min read</span>
+          </p>
         </div>
       </div>
-    </div>
+    </header>
+
+    <section class="section section--article-body" aria-label="Article">
+      <div class="container">
+        <div class="article-body prose" set:html={post.html} />
+      </div>
+    </section>
   </article>
-  <section class="section section--bg" aria-labelledby="faq-h2">
-    <div class="container container--narrow">
-      <div class="section-head"><p class="eyebrow">Quick answers</p><h2 id="faq-h2">Questions about this guide</h2></div>
-      <FaqList items={post.faqs} />
-    </div>
-  </section>
-  <section class="section" aria-labelledby="more-h2">
+
+  <section class="section section--bg section--faq" aria-labelledby="faq-h2">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">More guides</p><h2 id="more-h2">Keep reading</h2></div>
-      <ul class="area-chips">{others.map((p) => <li><a href={`/blog/${p.slug}/`}>{p.title}</a></li>)}</ul>
+      <div class="section-head">
+        <p class="eyebrow">Quick answers</p>
+        <h2 id="faq-h2">Questions about this guide</h2>
+      </div>
+      <FaqList items={post.faqs} columns={2} />
     </div>
   </section>
+
+  <section class="section section--blog-more" aria-labelledby="more-h2">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">More guides</p>
+        <h2 id="more-h2">Keep reading</h2>
+      </div>
+      <ul class="blog-grid blog-grid--more" role="list">
+        {others.map((p, i) => (
+          <li>
+            <article class="blog-card blog-card--compact reveal" style={`--i:${i % 3}`}>
+              <h3 class="blog-card__title"><a href={`/blog/${p.slug}/`}>{p.title}</a></h3>
+              <span class="blog-card__more" aria-hidden="true">Read the guide <Icon name="arrowRight" /></span>
+              <a class="card-link" href={`/blog/${p.slug}/`} aria-hidden="true" tabindex="-1"></a>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
   <section class="section section--bg quote-section" aria-labelledby="bq-h2">
     <div class="container">
-      <div class="section-head section-head--center"><p class="eyebrow">No pressure</p><h2 id="bq-h2">When you're ready, we'll price it from photos</h2></div>
+      <div class="section-head section-head--center">
+        <p class="eyebrow">No pressure</p>
+        <h2 id="bq-h2">When you're ready, we'll price it from photos</h2>
+      </div>
       <QuoteForm id="qb" anchor location={`blog-${post.slug}`} />
     </div>
   </section>
+
   <CtaBand quoteHref="#quote" />
 </BaseLayout>
