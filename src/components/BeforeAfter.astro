@@ -5,8 +5,8 @@ import Icon from './Icon.astro';
 import { slider } from '../data/photos';
 interface Props { eager?: boolean; caption?: string; beforeAlt?: string; afterAlt?: string }
 const { eager = false, caption, beforeAlt = 'Before: oven door glass covered in baked-on grease', afterAlt = 'After: the same oven door glass, clean and clear after our bond clean' } = Astro.props;
-const widths = [360, 520, 720, 900];
-const sizes = '(min-width: 1024px) 460px, 92vw';
+const widths = [360, 520, 720, 900, 1200, 1600];
+const sizes = '(min-width: 1024px) min(1100px, 72vw), 92vw';
 ---
 <figure class="photo mb-0">
   <div class="ba" data-ba style="--pos:50%">

@@ -72,6 +72,9 @@ export function t(input: string | undefined | null): string {
   }
   s = s.replace(/\{price:(\w+)\}/g, (_m, key: string) => price(key));
   s = s.replace(/\{(\w+)\}/g, (m, key: string) => (vars[key] ? vars[key]() : m));
+  // Legacy bracket placeholders in meta/copy (kept until every string uses {phone})
+  if (business.phone && !business.phone.includes('[')) s = s.replaceAll('[PHONE]', business.phone);
+  if (business.email && !business.email.includes('[')) s = s.replaceAll('[EMAIL]', business.email);
   return s.replace(/ {2,}/g, ' ');
 }
 
@@ -88,4 +91,5 @@ export function plain(input: string): string {
 export const telHref = () => `tel:${business.phoneE164}`;
 export const waHref = (msg = "Hi, I'd like a bond clean quote for a [x] bed in [suburb]") =>
   `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(msg)}`;
-export const mailHref = () => `mailto:${business.email}`;
+export const mailHref = (to: 'info' | 'sales' = 'info') =>
+  `mailto:${to === 'sales' ? business.emailSales : business.email}`;

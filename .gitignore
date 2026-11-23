@@ -3,3 +3,6 @@ dist/
 .astro/
 .netlify/
 .env
+
+# Local review artifacts
+tmp/

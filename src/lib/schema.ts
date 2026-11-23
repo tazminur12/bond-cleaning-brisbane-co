@@ -26,7 +26,7 @@ export function localBusiness() {
     url: siteUrl('/'),
     logo: siteUrl('/images/brand/app-icon-512.png'),
     image: siteUrl('/images/og-bond-cleaning-brisbane-co.jpg'),
-    telephone: business.phoneE164,
+    telephone: business.phoneSchema || business.phoneE164,
     email: business.email,
     priceRange: '$$',
     address: { '@type': 'PostalAddress', addressLocality: 'Brisbane', addressRegion: 'QLD', addressCountry: 'AU' },
@@ -48,7 +48,7 @@ export function localBusiness() {
     },
   };
   // Placeholders are kept out of structured data so validators don't flag them.
-  if (isPlaceholder(business.phoneE164)) delete out.telephone;
+  if (isPlaceholder(business.phoneE164) && isPlaceholder(business.phoneSchema || '')) delete out.telephone;
   if (isPlaceholder(business.email)) delete out.email;
   const sameAs = business.sameAs.filter((u) => !isPlaceholder(u));
   if (sameAs.length) out.sameAs = sameAs;

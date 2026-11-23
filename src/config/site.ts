@@ -13,13 +13,18 @@ export const business = {
   identity:
     'Bond Cleaning Brisbane Co. is a bond cleaning company in Brisbane that cleans rentals on the Northside and inner north for tenants moving out.',
   positioning: "Brisbane Northside's bond cleaning specialists. Fixed price, photo-proof, inspection ready.",
-  /** Display format, e.g. "0412 345 678" */
-  phone: '[PHONE]',
-  /** International format for tel: links and schema, e.g. "+61412345678" */
-  phoneE164: '[PHONE]',
-  /** Digits only for wa.me links, e.g. "61412345678" */
-  whatsapp: '[WHATSAPP]',
-  email: '[EMAIL]',
+  /** Display format — must match Google Business Profile and other listings */
+  phone: '0485 904 699',
+  /** International format for tel: links (no spaces), e.g. "+61485904699" */
+  phoneE164: '+61485904699',
+  /** Schema.org telephone display, e.g. "+61 485 904 699" */
+  phoneSchema: '+61 485 904 699',
+  /** Digits only for wa.me links (same mobile as phone until a separate WhatsApp number is set) */
+  whatsapp: '61485904699',
+  /** Primary public email (footer, schema, privacy) */
+  email: 'info@brisbanebondcleaningco.com.au',
+  /** Quotes and sales enquiries */
+  emailSales: 'sales@brisbanebondcleaningco.com.au',
   hours: '[Mon to Sun, 7am to 7pm]',
   hoursSchema: { opens: '07:00', closes: '19:00' },
   serviceArea: "Serving Brisbane's Northside and inner north",

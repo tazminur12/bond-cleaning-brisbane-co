@@ -1,15 +1,14 @@
 ---
 // Intent tier 2 (ready to book) with tier 3 "why us" blocks. Pillar page for "bond cleaning brisbane".
-import { getImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import QuoteForm from '../components/QuoteForm.astro';
-import BeforeAfter from '../components/BeforeAfter.astro';
 import PromiseChips from '../components/PromiseChips.astro';
 import TrustRow from '../components/TrustRow.astro';
 import IncludedRooms from '../components/IncludedRooms.astro';
 import Pains from '../components/Pains.astro';
 import PhotoGrid from '../components/PhotoGrid.astro';
+import PhotoFigure from '../components/PhotoFigure.astro';
 import Steps from '../components/Steps.astro';
 import DayTimeline from '../components/DayTimeline.astro';
 import PhotoReport from '../components/PhotoReport.astro';
@@ -26,31 +25,36 @@ import Reviews from '../components/Reviews.astro';
 import FaqList from '../components/FaqList.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { business, serviceGroups } from '../config/site';
-import { servicesInGroup } from '../lib/data';
+import { servicesInGroup, serviceBySlug } from '../lib/data';
 import { serviceShort } from '../content/services/index';
 import { pick } from '../data/faqs';
-import { slider } from '../data/photos';
+import { type PhotoKey } from '../data/photos';
 import { t, telHref, waHref, flagOn } from '../lib/tpl';
 import { website, faqPage } from '../lib/schema';
 
 const title = 'Bond Cleaning in Brisbane | Bond Cleaning Brisbane Co. | End of Lease & Vacate Cleaning Northside';
 const description = "Fixed-price bond cleaning across Brisbane's Northside. Agent checklist, photo report on the day, free re-clean if anything's flagged. Call [PHONE].";
 const faqs = pick('A1', 'A2', 'B9', 'C16', 'F1', 'F2', 'F3', 'D22').filter((f) => !f.flag || flagOn(f.flag));
-const lcp = await getImage({ src: slider.after, widths: [360, 520, 720, 900], sizes: '(min-width: 1024px) 460px, 92vw', format: 'webp' });
-const preload = { href: lcp.src, srcset: lcp.srcSet.attribute, sizes: '(min-width: 1024px) 460px, 92vw', type: 'image/webp' };
 const groupH2: Record<string, string> = {
   core: 'Bond and end of lease cleaning services',
   carpet: 'Carpet and upholstery cleaning for the bond',
   addon: 'Add-ons agents look for',
 };
+/** Featured services with real job photography (existing assets only). */
+const featuredServices: { slug: string; photo: PhotoKey }[] = [
+  { slug: 'end-of-lease-cleaning-brisbane', photo: 'shower' },
+  { slug: 'oven-cleaning-brisbane', photo: 'oven' },
+  { slug: 'carpet-steam-cleaning-brisbane', photo: 'carpet' },
+];
+const featuredSlugs = new Set(featuredServices.map((f) => f.slug));
 ---
-<BaseLayout title={title} description={description} schema={[website(), faqPage(faqs)]} preload={preload}>
+<BaseLayout title={title} description={description} schema={[website(), faqPage(faqs)]} bodyClass="page-home">
   <!-- 1. Hero -->
-  <section class="hero" aria-labelledby="h1">
+  <section class="hero hero--flagship" aria-labelledby="h1">
     <div class="container container--wide">
-      <div class="hero__grid">
+      <div class="hero__board">
         <div class="hero__copy">
-          <p class="eyebrow">Brisbane Northside &amp; inner north</p>
+          <p class="eyebrow eyebrow--soft">Brisbane Northside &amp; inner north</p>
           <h1 id="h1">Bond Cleaning in Brisbane</h1>
           <div class="lead hero__lead">
             <p set:html={t(`${business.identity} A fixed-price bond clean, done to your agent's checklist, with a room-by-room photo report the same day. If your property manager flags anything we cleaned, we come back {reclean} and fix it free.`)} />
@@ -62,11 +66,8 @@ const groupH2: Record<string, string> = {
           </div>
           <PromiseChips />
         </div>
-        <div class="hero__visual">
+        <div class="hero__form">
           <QuoteForm id="qh" anchor location="home-hero" />
-          <div class="hero__media">
-            <BeforeAfter eager beforeAlt="Bond cleaning Brisbane before: oven door glass covered in baked-on grease" afterAlt="Bond cleaning Brisbane after: the same oven door glass, clean and clear" />
-          </div>
         </div>
       </div>
       <TrustRow />
@@ -74,11 +75,11 @@ const groupH2: Record<string, string> = {
   </section>
 
   <!-- 2. Same job, four names -->
-  <section class="section section--bg section--names" aria-labelledby="names-h2">
+  <section class="section section--names surface-ivory" aria-labelledby="names-h2">
     <div class="container">
       <div class="names-band">
         <div class="names-band__intro">
-          <p class="eyebrow">Same job, four names</p>
+          <p class="section-label">Same job, four names</p>
           <h2 id="names-h2">Bond clean, end of lease clean, vacate clean, exit clean</h2>
         </div>
         <div class="names-band__copy">
@@ -91,10 +92,12 @@ const groupH2: Record<string, string> = {
   <!-- 3. What's included -->
   <section class="section section--included" aria-labelledby="inc-h2">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">What's included</p>
-        <h2 id="inc-h2">What a bond clean in Brisbane includes</h2>
-        <p>Every room, cleaned to the exit condition report (Form 14a) your property manager will walk through. These are the items agents flag most.</p>
+      <div class="section-head section-head--split">
+        <div class="section-head__main">
+          <p class="section-label">Checklist ready</p>
+          <h2 id="inc-h2">What a bond clean in Brisbane includes</h2>
+        </div>
+        <p class="section-head__aside">Every room, cleaned to the exit condition report (Form 14a) your property manager will walk through. These are the items agents flag most.</p>
       </div>
       <IncludedRooms />
       <div class="included-foot">
@@ -104,26 +107,31 @@ const groupH2: Record<string, string> = {
   </section>
 
   <!-- 4. What goes wrong -->
-  <section class="section section--bg section--pains" aria-labelledby="wrong-h2">
+  <section class="section section--pains surface-aqua" aria-labelledby="wrong-h2">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Why we exist</p>
-        <h2 id="wrong-h2">We built this company around what goes wrong with bond cleans</h2>
-        <p>We went through Brisbane renters' reviews and forum posts about bond cleaners. The same five complaints came up again and again. Here is what they said, and what we do instead.</p>
+      <div class="section-head section-head--rail">
+        <p class="section-kicker" aria-hidden="true">01</p>
+        <div>
+          <p class="section-label">Why we exist</p>
+          <h2 id="wrong-h2">We built this company around what goes wrong with bond cleans</h2>
+          <p>We went through Brisbane renters' reviews and forum posts about bond cleaners. The same five complaints came up again and again. Here is what they said, and what we do instead.</p>
+        </div>
       </div>
       <Pains />
     </div>
   </section>
 
   <!-- 5. Before & after -->
-  <section class="section section--proof" aria-labelledby="ba-h2">
+  <section class="section section--proof surface-sand" aria-labelledby="ba-h2">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Proof</p>
-        <h2 id="ba-h2">Bond Cleaning Brisbane: Before &amp; After Results</h2>
-        <p>Real results from our bond and end of lease cleans across Brisbane's Northside. These are the spots property managers check first at the exit inspection.</p>
+      <div class="section-head section-head--split">
+        <div class="section-head__main">
+          <p class="section-label">Real Northside jobs</p>
+          <h2 id="ba-h2">Bond Cleaning Brisbane: Before &amp; After Results</h2>
+        </div>
+        <p class="section-head__aside">Real results from our bond and end of lease cleans across Brisbane's Northside. These are the spots property managers check first at the exit inspection.</p>
       </div>
-      <PhotoGrid />
+      <PhotoGrid animate={false} eagerCount={6} />
       <div class="proof-foot">
         <a class="btn btn--secondary btn--lg" href="/our-work/">See all our before and after bond cleans <Icon name="arrowRight" /></a>
       </div>
@@ -138,15 +146,14 @@ const groupH2: Record<string, string> = {
   </Steps>
 
   <!-- 7. Inspection walk-through -->
-  <section class="section section--walk" aria-labelledby="walk-h2">
+  <section class="section section--walk surface-navy" aria-labelledby="walk-h2">
     <div class="container">
       <div class="walk-intro">
         <div class="walk-intro__copy">
-          <p class="eyebrow">The final inspection</p>
+          <p class="eyebrow eyebrow--soft">The final inspection</p>
           <h2 id="walk-h2">What your property manager checks, room by room</h2>
           <p class="lead">Picture the inspection. The agent arrives with the entry condition report on a tablet and walks the same route every time. Here's what they do, and what we've already done.</p>
         </div>
-        <img class="walk-intro__seal" src="/images/brand/seal.svg" alt="Inspection Ready seal from Bond Cleaning Brisbane Co." width="160" height="160" loading="lazy" decoding="async" />
       </div>
       <ol class="walk">
         <li class="reveal" style="--i:0"><h3>They open the oven</h3><p>Door glass, racks and the back wall. We degrease all three and separate the glass where the model allows.</p></li>
@@ -161,7 +168,7 @@ const groupH2: Record<string, string> = {
   </section>
 
   <!-- 8. Your photo report -->
-  <section class="section section--bg section--report" aria-labelledby="report-h2">
+  <section class="section section--report surface-aqua" aria-labelledby="report-h2">
     <div class="container">
       <div class="report-layout">
         <div class="report-copy">
@@ -185,40 +192,69 @@ const groupH2: Record<string, string> = {
   <!-- 9. Services -->
   <section class="section section--services" aria-labelledby="svc-h2">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Services</p>
-        <h2 id="svc-h2">Everything a Brisbane bond clean needs, and nothing else</h2>
-        <p>We only do bond cleans and the add-ons a bond clean needs. No offices, no weekly cleaning. Every crew does exit cleans every day.</p>
+      <div class="section-head section-head--split">
+        <div class="section-head__main">
+          <p class="section-label">What we clean</p>
+          <h2 id="svc-h2">Everything a Brisbane bond clean needs, and nothing else</h2>
+        </div>
+        <p class="section-head__aside">We only do bond cleans and the add-ons a bond clean needs. No offices, no weekly cleaning. Every crew does exit cleans every day.</p>
       </div>
-      <div class="svc-groups">
-        {serviceGroups.map((g) => (
-          <section class="svc-group" aria-labelledby={`svc-g-${g.key}`}>
-            <h3 class="svc-group__title" id={`svc-g-${g.key}`}>{groupH2[g.key]}</h3>
-            <ul class="svc-grid" role="list">
-              {servicesInGroup(g.key).map((s, i) => (
-                <li>
-                  <article class="svc-card reveal" style={`--i:${i % 4}`}>
-                    <h4 class="svc-card__title"><a href={s.url}>{s.name}</a></h4>
-                    <p class="svc-card__desc">{serviceShort[s.slug]}</p>
-                    <span class="svc-card__more" aria-hidden="true"><Icon name="arrowRight" /></span>
-                    <a class="card-link" href={s.url} aria-hidden="true" tabindex="-1"></a>
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
+
+      <div class="svc-feature">
+        {featuredServices.map((f, i) => {
+          const s = serviceBySlug(f.slug);
+          return (
+            <article class:list={['svc-feature__card', i === 0 && 'svc-feature__card--lead']}>
+              <div class="svc-feature__media">
+                <PhotoFigure k={f.photo} eager={i === 0} caption={false} zoom={false} sizes="(min-width: 1024px) 420px, (min-width: 640px) 46vw, 92vw" />
+              </div>
+              <div class="svc-feature__copy">
+                <h3 class="svc-feature__title"><a href={s.url}>{s.name}</a></h3>
+                <p class="svc-feature__desc">{serviceShort[s.slug]}</p>
+                <a class="text-link" href={s.url}>View service <Icon name="arrowRight" /></a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <div class="svc-groups svc-groups--rail">
+        {serviceGroups.map((g) => {
+          const rest = servicesInGroup(g.key).filter((s) => !featuredSlugs.has(s.slug));
+          if (!rest.length) return null;
+          return (
+            <section class="svc-group" aria-labelledby={`svc-g-${g.key}`}>
+              <h3 class="svc-group__title" id={`svc-g-${g.key}`}>{groupH2[g.key]}</h3>
+              <ul class="svc-grid svc-grid--rail" role="list">
+                {rest.map((s) => (
+                  <li>
+                    <article class="svc-card svc-card--rail">
+                      <div class="svc-card__copy">
+                        <h4 class="svc-card__title"><a href={s.url}>{s.name}</a></h4>
+                        <p class="svc-card__desc">{serviceShort[s.slug]}</p>
+                      </div>
+                      <span class="svc-card__more" aria-hidden="true"><Icon name="arrowRight" /></span>
+                      <a class="card-link" href={s.url} aria-hidden="true" tabindex="-1"></a>
+                    </article>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
       </div>
     </div>
   </section>
 
   <!-- 10. Pricing teaser + packages -->
-  <section class="section section--bg section--price" aria-labelledby="price-h2">
+  <section class="section section--price surface-ivory" aria-labelledby="price-h2">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Price</p>
-        <h2 id="price-h2">Bond cleaning prices in Brisbane, fixed by bedrooms</h2>
-        <p set:html={t('Most Brisbane bond cleans cost between about $250 and $600 before carpets. Ours are fixed by bedrooms and bathrooms, from {price:b1} for a 1-bed unit. No hourly rates, no surprises on the day.')} />
+      <div class="section-head section-head--split">
+        <div class="section-head__main">
+          <p class="eyebrow eyebrow--soft">Fixed by bedrooms</p>
+          <h2 id="price-h2">Bond cleaning prices in Brisbane, fixed by bedrooms</h2>
+        </div>
+        <p class="section-head__aside" set:html={t('Most Brisbane bond cleans cost between about $250 and $600 before carpets. Ours are fixed by bedrooms and bathrooms, from {price:b1} for a 1-bed unit. No hourly rates, no surprises on the day.')} />
       </div>
       <PriceCards only={['b1', 'b2', 'b3']} />
       <div class="price-packages">
@@ -235,15 +271,20 @@ const groupH2: Record<string, string> = {
   </section>
 
   <!-- 11. Guarantee -->
-  <Guarantee />
+  <div class="home-guarantee">
+    <Guarantee />
+  </div>
 
   <!-- 12. Areas -->
-  <section class="section section--areas" aria-labelledby="areas-h2">
+  <section class="section section--areas surface-sand" aria-labelledby="areas-h2">
     <div class="container">
-      <div class="section-head areas-intro">
-        <p class="eyebrow">Areas</p>
-        <h2 id="areas-h2">Bond cleaning across Brisbane's Northside</h2>
-        <p>We only work Brisbane's Northside and inner north, from the CBD and New Farm up Gympie Road and Sandgate Road to Chermside, Aspley and North Lakes. Staying local means we know the buildings, the lift bookings, the Queenslanders with VJ walls and the agencies that inspect the hardest. Bond cleaning north Brisbane, every week, in these 20 suburbs:</p>
+      <div class="section-head areas-intro section-head--rail">
+        <p class="section-kicker" aria-hidden="true">03</p>
+        <div>
+          <p class="eyebrow eyebrow--soft">Northside only</p>
+          <h2 id="areas-h2">Bond cleaning across Brisbane's Northside</h2>
+          <p>We only work Brisbane's Northside and inner north, from the CBD and New Farm up Gympie Road and Sandgate Road to Chermside, Aspley and North Lakes. Staying local means we know the buildings, the lift bookings, the Queenslanders with VJ walls and the agencies that inspect the hardest. Bond cleaning north Brisbane, every week, in these 20 suburbs:</p>
+        </div>
       </div>
       <div class="areas-panel">
         <div class="areas-panel__map">
@@ -258,7 +299,7 @@ const groupH2: Record<string, string> = {
   </section>
 
   <!-- 13. QLD rules + no need to be there -->
-  <section class="section section--bg section--rules" aria-labelledby="rules-h2">
+  <section class="section section--rules surface-aqua" aria-labelledby="rules-h2">
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">QLD rules in plain English</p>
@@ -283,10 +324,10 @@ const groupH2: Record<string, string> = {
   <Reviews />
 
   <!-- 16. FAQs -->
-  <section class="section section--bg section--faq" aria-labelledby="faq-h2">
+  <section class="section section--faq surface-ivory" aria-labelledby="faq-h2">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Questions</p>
+      <div class="section-head section-head--compact">
+        <p class="eyebrow eyebrow--soft">Questions</p>
         <h2 id="faq-h2">Bond cleaning Brisbane FAQs</h2>
       </div>
       <FaqList items={faqs} columns={2} />
@@ -295,5 +336,7 @@ const groupH2: Record<string, string> = {
   </section>
 
   <!-- 17. Final CTA -->
-  <CtaBand quoteHref="#quote" />
+  <div class="home-cta">
+    <CtaBand quoteHref="#quote" />
+  </div>
 </BaseLayout>

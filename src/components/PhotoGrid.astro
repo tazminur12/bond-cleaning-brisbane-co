@@ -1,13 +1,31 @@
 ---
 import PhotoFigure from './PhotoFigure.astro';
 import { photoOrder, type PhotoKey } from '../data/photos';
-interface Props { keys?: PhotoKey[]; cols?: 2 | 3 }
-const { keys = photoOrder, cols = 3 } = Astro.props;
+interface Props {
+  keys?: PhotoKey[];
+  cols?: 2 | 3;
+  /** Fade-in on scroll (can hide images until visible — disable for above-fold proof) */
+  animate?: boolean;
+  /** Eager-load the first N photos to avoid grey placeholders */
+  eagerCount?: number;
+  /** Editorial bento proportions on large screens */
+  bento?: boolean;
+}
+const { keys = photoOrder, cols = 3, animate = true, eagerCount = 0, bento = false } = Astro.props;
+const sizes = bento
+  ? '(min-width: 1024px) 560px, (min-width: 640px) 46vw, 92vw'
+  : cols === 2
+    ? '(min-width: 1024px) 560px, (min-width: 640px) 46vw, 92vw'
+    : undefined;
 ---
-<ul class:list={['photo-grid', cols === 2 && 'photo-grid--2']} role="list" data-photo-grid>
+<ul class:list={['photo-grid', cols === 2 && 'photo-grid--2', bento && 'photo-grid--bento']} role="list" data-photo-grid>
   {keys.map((k, i) => (
-    <li class="photo-grid__item reveal" style={`--i:${i % 3}`} data-room-item>
-      <PhotoFigure k={k} sizes={cols === 2 ? '(min-width: 1024px) 560px, (min-width: 640px) 46vw, 92vw' : undefined} />
+    <li
+      class:list={['photo-grid__item', animate && 'reveal', bento && i === 0 && 'photo-grid__item--feature']}
+      style={animate ? `--i:${i % 3}` : undefined}
+      data-room-item
+    >
+      <PhotoFigure k={k} sizes={sizes} eager={i < eagerCount} />
     </li>
   ))}
 </ul>

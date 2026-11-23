@@ -16,7 +16,8 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Contact', href: '/contact/
     <p class="lead" set:html={t('Get your bond cleaning quote in Brisbane in under a minute. Tell us the suburb and size, add a few photos, and we\'ll text a fixed price within {replyTime} during business hours. Looking for a bond cleaner near you? If you\'re on the Northside or in the inner north, we\'re local.')} />
     <ul class="contact-channels">
       <li><Icon name="phone" /><a href={telHref()} data-track="call_click" data-track-location="contact">{business.phone}</a></li>
-      <li><Icon name="whatsapp" /><a href={waHref()} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="contact">WhatsApp {business.whatsapp}</a></li>
+      <li><Icon name="whatsapp" /><a href={waHref()} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="contact">WhatsApp {business.phone}</a></li>
+      <li><Icon name="mail" /><a href={mailHref('sales')}>{business.emailSales}</a></li>
       <li><Icon name="mail" /><a href={mailHref()}>{business.email}</a></li>
       <li><Icon name="clock" /><span>{business.hours}</span></li>
       <li><Icon name="pin" /><span>{business.serviceArea}</span></li>

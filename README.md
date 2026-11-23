@@ -235,9 +235,9 @@ More detail: `DEVELOPER-HANDOFF.md`, `content-coverage.md`.
 
 ## Open items (fill in `src/config/site.ts`)
 
-- [ ] `[PHONE]` display + `phoneE164` (tel: links, schema)
+- [x] Phone: `0485 904 699` + `tel:+61485904699` + schema `+61 485 904 699`
 - [ ] `[WHATSAPP]` (wa.me links)
-- [ ] `[EMAIL]` (suggest hello@bondcleaningco.com; no Gmail)
+- [x] Email: `info@brisbanebondcleaningco.com.au` + `sales@brisbanebondcleaningco.com.au`
 - [ ] Hours `[Mon to Sun, 7am to 7pm]` and `hoursSchema`
 - [ ] Reply time `[15 minutes]`, same/next-day cut-off `[2pm]`
 - [ ] All prices `[$]`: 1–4 bed, add-ons, packages, furnished, extra bathroom
