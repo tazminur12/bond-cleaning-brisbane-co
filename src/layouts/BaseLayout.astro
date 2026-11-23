@@ -70,7 +70,7 @@ const ga4 = business.ga4Id;
     {!gtm && ga4 && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4}`}></script>}
     {!gtm && ga4 && <script is:inline define:vars={{ ga4 }}>function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',ga4);</script>}
   </head>
-  <body class:list={[bodyClass]}>
+  <body class:list={['page-site', bodyClass]}>
     <a class="skip-link" href="#main">Skip to content</a>
     <Header />
     <main id="main" tabindex="-1">

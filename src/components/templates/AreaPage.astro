@@ -40,13 +40,13 @@ const schema = [
 const waMsg = `Hi, I'd like a bond clean quote for a [x] bed in ${area.name}`;
 const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 ---
-<BaseLayout title={area.title} description={area.meta} crumbs={crumbs} schema={schema}>
+<BaseLayout title={area.title} description={area.meta} crumbs={crumbs} schema={schema} bodyClass="page-area">
   <Fragment set:html={`<!-- Intent tier ${c.tier} · ${area.primary} · persona: ${c.persona} -->`} />
   <section class="page-hero">
     <div class="container">
       <div class="page-hero__grid">
         <div class="page-hero__copy">
-          <p class="eyebrow">{group.name} · {area.name} {area.pc}</p>
+          <p class="eyebrow eyebrow--soft">{group.name} · {area.name} {area.pc}</p>
           <h1>{area.h1}</h1>
           <div class="lead hero__lead" set:html={t(c.intro)} />
           <div class="btn-row btn-row--stack">
@@ -64,11 +64,11 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     </div>
   </section>
 
-  <section class="section section--bg section--area-local" aria-labelledby="local-h2">
+  <section class="section section--area-local surface-aqua" aria-labelledby="local-h2">
     <div class="container">
       <div class="area-local">
         <div class="area-local__copy prose">
-          <p class="eyebrow">Local knowledge</p>
+          <p class="section-label">Local knowledge</p>
           <h2 id="local-h2">{c.local.h2}</h2>
           {c.local.paras.map((p) => <p set:html={t(p)} />)}
           <h3>{c.access.h3}</h3>
@@ -89,20 +89,20 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
   <RealJob job={c.realJob} suburb={area.name} />
 
-  <section class="section section--sand section--area-extra" aria-labelledby="extra-h2">
+  <section class="section section--area-extra surface-sand" aria-labelledby="extra-h2">
     <div class="container">
       <div class="area-extra">
-        <p class="eyebrow">{area.name} specifics</p>
+        <p class="section-label">{area.name} specifics</p>
         <h2 id="extra-h2">{c.extra.h2}</h2>
         <div class="area-extra__body prose" set:html={t(c.extra.html)} />
       </div>
     </div>
   </section>
 
-  <section class="section section--bg section--included" aria-labelledby="inc-h2">
+  <section class="section section--included" aria-labelledby="inc-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">What's included</p>
+        <p class="section-label">What's included</p>
         <h2 id="inc-h2">What's included in every bond clean</h2>
         <p>The same room-by-room list on every job. See the <a href="/bond-cleaning-checklist/">full bond cleaning checklist</a> for every item.</p>
       </div>
@@ -110,14 +110,14 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     </div>
   </section>
 
-  <section class="section section--area-photos" aria-labelledby="ba-h2">
+  <section class="section section--area-photos surface-sand" aria-labelledby="ba-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Before and after</p>
+        <p class="section-label">Before and after</p>
         <h2 id="ba-h2">Results from our Brisbane bond cleans</h2>
         <p>{c.photoIntro}</p>
       </div>
-      <PhotoGrid keys={c.photos} cols={2} />
+      <PhotoGrid keys={c.photos} cols={2} animate={false} eagerCount={2} />
     </div>
   </section>
 
@@ -126,7 +126,7 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
   <section class="section section--services" aria-labelledby="svc-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Services</p>
+        <p class="section-label">Services</p>
         <h2 id="svc-h2">{c.servicesH2}</h2>
       </div>
       <ul class="svc-grid area-svc-grid" role="list">
@@ -146,20 +146,20 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     </div>
   </section>
 
-  <section class="section section--bg section--faq" aria-labelledby="faq-h2">
+  <section class="section section--faq surface-ivory" aria-labelledby="faq-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Questions</p>
+        <p class="section-label">Questions</p>
         <h2 id="faq-h2">{area.name} bond clean questions</h2>
       </div>
       <FaqList items={faqs} columns={2} />
     </div>
   </section>
 
-  <section class="section section--areas section--area-near" aria-labelledby="near-h2">
+  <section class="section section--areas section--area-near surface-sand" aria-labelledby="near-h2">
     <div class="container">
       <div class="section-head areas-intro">
-        <p class="eyebrow">Nearby</p>
+        <p class="section-label">Nearby</p>
         <h2 id="near-h2">Nearby areas we clean</h2>
         <p>{c.nearbyIntro}</p>
       </div>
@@ -172,10 +172,10 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     </div>
   </section>
 
-  <section class="section section--bg quote-section" aria-labelledby="bottom-quote-h2">
+  <section class="section quote-section surface-aqua" aria-labelledby="bottom-quote-h2">
     <div class="container">
       <div class="section-head section-head--center">
-        <p class="eyebrow">{area.name} {area.pc}</p>
+        <p class="section-label">{area.name} {area.pc}</p>
         <h2 id="bottom-quote-h2">Get your {area.name} fixed price</h2>
       </div>
       <QuoteForm id="qb" suburb={area.name} location={`${area.slug}-bottom`} />

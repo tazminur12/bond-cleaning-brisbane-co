@@ -7,7 +7,7 @@ const hasAside = Astro.slots.has('aside');
   <div class="container">
     <div class:list={['page-hero__grid', !hasAside && 'page-hero__grid--single']}>
       <div class:list={['page-hero__copy', narrow && 'prose']}>
-        <p class="eyebrow">{eyebrow}</p>
+        <p class="eyebrow eyebrow--soft">{eyebrow}</p>
         <h1>{h1}</h1>
         <slot />
       </div>

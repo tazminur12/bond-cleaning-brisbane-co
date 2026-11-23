@@ -18,13 +18,13 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Guides', href: '/blog/' },
 const others = posts.filter((p) => p.slug !== post.slug);
 const published = new Date(post.published).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
-<BaseLayout title={`${post.title} | ${business.name}`} description={post.description} crumbs={crumbs} ogType="article" schema={[article({ title: post.title, description: post.description, url, published: post.published }), faqPage(post.faqs)]}>
+<BaseLayout title={`${post.title} | ${business.name}`} description={post.description} crumbs={crumbs} ogType="article" schema={[article({ title: post.title, description: post.description, url, published: post.published }), faqPage(post.faqs)]} bodyClass="page-core">
   <Fragment set:html={`<!-- Intent tier 4 · ${post.query} -->`} />
   <article class="blog-article">
     <header class="page-hero page-hero--article">
       <div class="container">
         <div class="article-head">
-          <p class="eyebrow">Guide</p>
+          <p class="section-label">Guide</p>
           <h1>{post.title}</h1>
           <p class="article-meta">
             <span>By {business.name}</span>
@@ -45,7 +45,7 @@ const published = new Date(post.published).toLocaleDateString('en-AU', { day: 'n
   <section class="section section--bg section--faq" aria-labelledby="faq-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Quick answers</p>
+        <p class="section-label">Quick answers</p>
         <h2 id="faq-h2">Questions about this guide</h2>
       </div>
       <FaqList items={post.faqs} columns={2} />
@@ -55,7 +55,7 @@ const published = new Date(post.published).toLocaleDateString('en-AU', { day: 'n
   <section class="section section--blog-more" aria-labelledby="more-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">More guides</p>
+        <p class="section-label">More guides</p>
         <h2 id="more-h2">Keep reading</h2>
       </div>
       <ul class="blog-grid blog-grid--more" role="list">
@@ -75,7 +75,7 @@ const published = new Date(post.published).toLocaleDateString('en-AU', { day: 'n
   <section class="section section--bg quote-section" aria-labelledby="bq-h2">
     <div class="container">
       <div class="section-head section-head--center">
-        <p class="eyebrow">No pressure</p>
+        <p class="section-label">No pressure</p>
         <h2 id="bq-h2">When you're ready, we'll price it from photos</h2>
       </div>
       <QuoteForm id="qb" anchor location={`blog-${post.slug}`} />

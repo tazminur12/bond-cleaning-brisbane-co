@@ -12,7 +12,7 @@ const rooms = ['Kitchen', 'Bathroom', 'Carpet', 'Laundry', 'Fans'];
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Our work', href: '/our-work/' }];
 const svcName = (url: string) => serviceBySlug(url.replace(/\//g, '')).name;
 ---
-<BaseLayout title="Before & After Bond Cleans Brisbane | Bond Cleaning Brisbane Co." description="Before and after photos from our bond and end of lease cleans across Brisbane's Northside: ovens, showers, carpets, cupboards, laundries and ceiling fans." crumbs={crumbs}>
+<BaseLayout title="Before & After Bond Cleans Brisbane | Bond Cleaning Brisbane Co." description="Before and after photos from our bond and end of lease cleans across Brisbane's Northside: ovens, showers, carpets, cupboards, laundries and ceiling fans." crumbs={crumbs} bodyClass="page-core">
   <PageHero eyebrow="Real jobs · Real photos" h1="Our Work: Brisbane Bond Cleans, Before and After">
     <p class="lead">Bond cleaning before and after photos from our own jobs on Brisbane's Northside. No stock images, no staged rooms: these are the spots property managers check first, photographed the way they look in your report.</p>
     <Fragment slot="aside"><BeforeAfter beforeAlt="Bond cleaning before and after: the oven door glass before, covered in baked-on grease" afterAlt="Bond cleaning before and after: the same oven door glass after, clean and clear" caption="Drag the handle: oven door glass, before and after our bond clean." /></Fragment>
@@ -21,7 +21,7 @@ const svcName = (url: string) => serviceBySlug(url.replace(/\//g, '')).name;
   <section class="section section--bg section--work" aria-labelledby="gal-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Gallery</p>
+        <p class="section-label">Gallery</p>
         <h2 id="gal-h2">Bond cleaning before and after, by room</h2>
         <p>Filter by room. Tap any photo to see it full size.</p>
       </div>
@@ -47,7 +47,7 @@ const svcName = (url: string) => serviceBySlug(url.replace(/\//g, '')).name;
     <div class="container">
       <div class="report-layout">
         <div class="report-copy">
-          <p class="eyebrow">Every job</p>
+          <p class="section-label">Every job</p>
           <h2 id="rep-h2">The same photos go in your report</h2>
           <p class="lead">Every bond clean ends with a dated, room-by-room photo report and tax invoice, emailed the same day. Share it with your agent, keep it for your records, or post it in the group chat when someone asks for a bond cleaner.</p>
         </div>

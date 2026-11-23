@@ -44,13 +44,13 @@ const crumbs = [
 const schema = [serviceSchema({ name: svc.name, serviceType: svc.gbp, url: svc.url, description: c.intro }), faqPage(faqs)];
 const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos and the agent's list:" : undefined;
 ---
-<BaseLayout title={svc.title} description={svc.meta} crumbs={crumbs} schema={schema}>
+<BaseLayout title={svc.title} description={svc.meta} crumbs={crumbs} schema={schema} bodyClass="page-service">
   <Fragment set:html={`<!-- Intent tier ${c.tier} · ${svc.primary} -->`} />
   <section class="page-hero">
     <div class="container">
       <div class="page-hero__grid">
         <div class="page-hero__copy">
-          <p class="eyebrow">{group.name} · Brisbane Northside</p>
+          <p class="eyebrow eyebrow--soft">{group.name} · Brisbane Northside</p>
           <h1>{svc.h1}</h1>
           {c.tier === 1 && (
             <div class="urgent-bar on-navy">
@@ -94,14 +94,14 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
     </div>
   </section>
 
-  <section class="section section--bg section--service-problem" aria-labelledby="problem-h2">
+  <section class="section section--service-problem surface-aqua" aria-labelledby="problem-h2">
     <div class="container">
       <div class="service-problem">
         <div class="service-problem__media reveal">
           <PhotoFigure k={c.heroPhoto} eager alt={heroAlt} sizes="(min-width: 960px) 560px, 92vw" />
         </div>
         <div class="service-problem__copy">
-          <p class="eyebrow">Sound familiar?</p>
+          <p class="section-label">Sound familiar?</p>
           <h2 id="problem-h2">{c.problem.h2}</h2>
           <div class="service-quotes">
             {c.problem.quotes.map((q) => (
@@ -119,7 +119,7 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
   <section class="section section--included" aria-labelledby="inc-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">What's included</p>
+        <p class="section-label">What's included</p>
         <h2 id="inc-h2">{c.included.h2}</h2>
         {c.included.intro && <p>{c.included.intro}</p>}
       </div>
@@ -138,7 +138,7 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
   {c.sections.map((s, i) => <SectionBlock s={s} i={i} />)}
 
   {c.tier === 3 && (
-    <section class="section section--bg quote-section" aria-label="Get a quote">
+    <section class="section quote-section surface-aqua" aria-label="Get a quote">
       <div class="container">
         <QuoteForm id="qm" anchor location={`${svc.slug}-mid`} />
       </div>
@@ -148,14 +148,14 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
   <Steps intro="The same four steps on every job, whether it's a studio in the city or a house in North Lakes." />
 
   {morePhotos.length > 0 && (
-    <section class="section section--bg section--area-photos" aria-labelledby="ba-h2">
+    <section class="section section--area-photos surface-sand" aria-labelledby="ba-h2">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Before and after</p>
+          <p class="section-label">Before and after</p>
           <h2 id="ba-h2">Real results from Brisbane bond cleans</h2>
           <p>Photos from our own jobs. These are the spots property managers check first.</p>
         </div>
-        <PhotoGrid keys={morePhotos} cols={morePhotos.length === 1 ? 2 : morePhotos.length === 2 ? 2 : 3} />
+        <PhotoGrid keys={morePhotos} cols={morePhotos.length === 1 ? 2 : morePhotos.length === 2 ? 2 : 3} animate={false} eagerCount={2} />
         <p class="service-photos-foot"><a class="text-link" href="/our-work/">See more of our work <Icon name="arrowRight" /></a></p>
       </div>
     </section>
@@ -163,11 +163,11 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
 
   <Reviews />
 
-  <section class="section section--sand section--service-price" aria-labelledby="price-h2">
+  <section class="section section--service-price surface-ivory" aria-labelledby="price-h2">
     <div class="container">
       <div class="service-price">
         <div class="service-price__copy prose">
-          <p class="eyebrow">Price</p>
+          <p class="section-label">Price</p>
           <h2 id="price-h2">{c.price.h2}</h2>
           <div set:html={t(c.price.html)} />
           <p><a href="/pricing/">See all bond cleaning prices and add-ons</a></p>
@@ -185,10 +185,10 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
     </div>
   </section>
 
-  <section class="section section--areas" aria-labelledby="areas-h2">
+  <section class="section section--areas surface-sand" aria-labelledby="areas-h2">
     <div class="container">
       <div class="section-head areas-intro">
-        <p class="eyebrow">Areas</p>
+        <p class="section-label">Areas</p>
         <h2 id="areas-h2">{svc.name} across Brisbane's Northside</h2>
         <p>{c.areasIntro}</p>
       </div>
@@ -198,10 +198,10 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
     </div>
   </section>
 
-  <section class="section section--bg section--faq" aria-labelledby="faq-h2">
+  <section class="section section--faq surface-ivory" aria-labelledby="faq-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Questions</p>
+        <p class="section-label">Questions</p>
         <h2 id="faq-h2">{c.faqH2 ?? `${svc.name}: your questions answered`}</h2>
       </div>
       <FaqList items={faqs} columns={2} />
@@ -212,7 +212,7 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
   <section class="section section--services" aria-labelledby="rel-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Related</p>
+        <p class="section-label">Related</p>
         <h2 id="rel-h2">Often booked together</h2>
         <p>Part of our <a href="/">bond cleaning Brisbane</a> service. These are the add-ons and services people book alongside this one.</p>
       </div>
@@ -230,10 +230,10 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
     </div>
   </section>
 
-  <section class="section section--bg quote-section" aria-labelledby="bottom-quote-h2">
+  <section class="section quote-section surface-aqua" aria-labelledby="bottom-quote-h2">
     <div class="container">
       <div class="section-head section-head--center">
-        <p class="eyebrow">Ready when you are</p>
+        <p class="section-label">Ready when you are</p>
         <h2 id="bottom-quote-h2">Get your fixed price in 60 seconds</h2>
       </div>
       <QuoteForm id="qb" location={`${svc.slug}-bottom`} />

@@ -20,7 +20,7 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Pricing', href: '/pricing/
 const addonPrice = (a: (typeof addons)[number]) =>
   a.freeWhen && flagOn(a.freeWhen) ? t('{carpet}') : `${a.unit === 'from' ? 'from ' : ''}${price(a.key)}${a.unit !== 'from' && a.unit !== 'each' ? ` ${a.unit}` : ''}`;
 ---
-<BaseLayout title="Bond Cleaning Prices Brisbane | Bond Cleaning Brisbane Co." description="Bond cleaning prices in Brisbane, fixed by bedrooms and bathrooms. Price table, packages, add-ons and how long each clean takes. No hourly rates, no surprises on the day." crumbs={crumbs} schema={[faqPage(faqs)]}>
+<BaseLayout title="Bond Cleaning Prices Brisbane | Bond Cleaning Brisbane Co." description="Bond cleaning prices in Brisbane, fixed by bedrooms and bathrooms. Price table, packages, add-ons and how long each clean takes. No hourly rates, no surprises on the day." crumbs={crumbs} schema={[faqPage(faqs)]} bodyClass="page-pricing">
   <PageHero eyebrow="Fixed prices · Brisbane Northside" h1="Bond Cleaning Prices in Brisbane">
     <div class="lead">
       <p set:html={t("Our bond cleans are a fixed price based on bedrooms, bathrooms and condition. Most Brisbane bond cleans land between about $250 and $600 before carpets. Here are ours, with what's included and what costs extra. Bond cleaning Brisbane prices start at {price:b1} for a studio or 1-bed, and your exact price comes back in writing within {replyTime} of your photos.")} />
@@ -29,10 +29,10 @@ const addonPrice = (a: (typeof addons)[number]) =>
     <Fragment slot="aside"><QuoteForm id="qt" anchor location="pricing-top" /></Fragment>
   </PageHero>
 
-  <section class="section section--bg section--price" aria-labelledby="table-h2">
+  <section class="section section--price surface-aqua" aria-labelledby="table-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Price by bedrooms</p>
+        <p class="section-label">Price by bedrooms</p>
         <h2 id="table-h2">Bond cleaning Brisbane prices by property size</h2>
         <p>Fixed prices for a standard bond clean. Every price includes the oven, rangehood, bathrooms, inside cupboards, tracks, fans, skirting, walls spot cleaned, floors, the photo report and the re-clean promise.</p>
       </div>
@@ -41,10 +41,10 @@ const addonPrice = (a: (typeof addons)[number]) =>
     </div>
   </section>
 
-  <section class="section section--packages" aria-labelledby="pk-h2">
+  <section class="section section--packages surface-ivory" aria-labelledby="pk-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Packages</p>
+        <p class="section-label">Packages</p>
         <h2 id="pk-h2">Three packages for the whole lease list</h2>
         <p>Most leases ask for one of these. Pick the one that matches yours, or just send your lease and we'll tell you.</p>
       </div>
@@ -52,10 +52,10 @@ const addonPrice = (a: (typeof addons)[number]) =>
     </div>
   </section>
 
-  <section class="section section--bg section--inc" aria-labelledby="inc-h2">
+  <section class="section section--inc surface-sand" aria-labelledby="inc-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Included vs extra</p>
+        <p class="section-label">Included vs extra</p>
         <h2 id="inc-h2">End of lease cleaning Brisbane prices: what's in, what's extra</h2>
       </div>
       <div class="inc-panels">
@@ -95,7 +95,7 @@ const addonPrice = (a: (typeof addons)[number]) =>
     <div class="container">
       <div class="timing-layout">
         <div class="timing-copy">
-          <p class="eyebrow">Timing</p>
+          <p class="section-label">Timing</p>
           <h2 id="time-h2">How long does a bond clean take?</h2>
           <p>Long enough to finish the checklist. We don't leave at a set number of hours: the crew stays until every item is done and photographed. As a guide, with our usual crew sizes:</p>
           <PhotoFigure k="oven" alt="Included in our bond cleaning Brisbane prices: oven door glass before and after, baked-on grease removed" sizes="(min-width: 960px) 520px, 92vw" />
@@ -114,7 +114,7 @@ const addonPrice = (a: (typeof addons)[number]) =>
     <div class="container">
       <div class="fair-layout">
         <div class="fair-copy prose">
-          <p class="eyebrow">Cheap bond cleaning Brisbane?</p>
+          <p class="section-label">Cheap bond cleaning Brisbane?</p>
           <h2 id="fair-h2">Fair price, no surprises</h2>
           <p>Search "cheap bond cleaning Brisbane" and you'll find adverts from $45 or $99. Those prices are real, but they're usually for one room, by the hour, or for a clean that leaves out the oven, the walls and the guarantee. The full price shows up on the day, when you have no time to say no.</p>
           <p>A fair bond clean price is one number that covers the whole property, the oven, the tracks and the re-clean, written down before anyone arrives. That's the only way we price.</p>
@@ -132,10 +132,10 @@ const addonPrice = (a: (typeof addons)[number]) =>
     </div>
   </section>
 
-  <section class="section section--bg section--calc" aria-labelledby="calc-h2">
+  <section class="section section--calc surface-aqua" aria-labelledby="calc-h2">
     <div class="container container--narrow">
       <div class="section-head">
-        <p class="eyebrow">DIY vs professional</p>
+        <p class="section-label">DIY vs professional</p>
         <h2 id="calc-h2">How much does a DIY bond clean really cost you?</h2>
         <p>Professional cleaning isn't legally required in Queensland. Whether it's worth paying for depends on your time, the products you'd buy and the risk of a re-clean. Try your own numbers.</p>
       </div>
@@ -158,14 +158,14 @@ const addonPrice = (a: (typeof addons)[number]) =>
 
   <section class="section section--faq" aria-labelledby="faq-h2">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">Questions</p><h2 id="faq-h2">Bond cleaning price questions</h2></div>
+      <div class="section-head"><p class="section-label">Questions</p><h2 id="faq-h2">Bond cleaning price questions</h2></div>
       <FaqList items={faqs} columns={2} />
     </div>
   </section>
 
-  <section class="section section--bg quote-section" aria-labelledby="bq-h2">
+  <section class="section quote-section surface-aqua" aria-labelledby="bq-h2">
     <div class="container">
-      <div class="section-head section-head--center"><p class="eyebrow">Your exact number</p><h2 id="bq-h2">Get your fixed price in writing</h2></div>
+      <div class="section-head section-head--center"><p class="section-label">Your exact number</p><h2 id="bq-h2">Get your fixed price in writing</h2></div>
       <QuoteForm id="qb" location="pricing-bottom" />
     </div>
   </section>

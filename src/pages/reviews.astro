@@ -11,7 +11,7 @@ import { business } from '../config/site';
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Reviews', href: '/reviews/' }];
 const hasReviews = (reviews as unknown[]).length > 0;
 ---
-<BaseLayout title="Reviews | Bond Cleaning Brisbane Co." description="Bond Cleaning Brisbane Co. reviews: real Google reviews only, plus before and after photos from our Brisbane bond cleans. If we've cleaned for you, we'd love your review." crumbs={crumbs}>
+<BaseLayout title="Reviews | Bond Cleaning Brisbane Co." description="Bond Cleaning Brisbane Co. reviews: real Google reviews only, plus before and after photos from our Brisbane bond cleans. If we've cleaned for you, we'd love your review." crumbs={crumbs} bodyClass="page-core">
   <PageHero eyebrow="Real Google reviews only" h1="What Our Customers Say">
     {!hasReviews && (
       <>
@@ -29,7 +29,7 @@ const hasReviews = (reviews as unknown[]).length > 0;
     <div class="container">
       <div class="promise-layout">
         <div class="promise-copy">
-          <p class="eyebrow">Our review promise</p>
+          <p class="section-label">Our review promise</p>
           <h2 id="promise-h2">Bond cleaning Brisbane reviews you can trust</h2>
           <ul class="ticks promise-copy__ticks">
             <li>We only show real Google reviews, never testimonials we wrote or collected ourselves.</li>
@@ -49,7 +49,7 @@ const hasReviews = (reviews as unknown[]).length > 0;
   <section class="section section--proof" aria-labelledby="proof-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Proof of work</p>
+        <p class="section-label">Proof of work</p>
         <h2 id="proof-h2">Before and after, from our Brisbane jobs</h2>
       </div>
       <PhotoGrid />

@@ -6,7 +6,7 @@ import Icon from '../components/Icon.astro';
 import { business } from '../config/site';
 import { telHref, waHref, t } from '../lib/tpl';
 ---
-<BaseLayout title="Thank You | Bond Cleaning Brisbane Co." description="Thanks for your quote request." noindex>
+<BaseLayout title="Thank You | Bond Cleaning Brisbane Co." description="Thanks for your quote request." noindex bodyClass="page-core">
   <PageHero eyebrow="Request received" h1="Thanks. Your fixed price is on its way.">
     <p class="lead" set:html={t("We'll text you a fixed price within {replyTime} during business hours. If you sent photos, they're with your coordinator now.")} />
     <div class="btn-row">

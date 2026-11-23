@@ -21,7 +21,7 @@ const side = s.component && !wide;
   <div class="container">
     <div class:list={[side && 'svc-block', !side && !wide && 'svc-block--solo', wide && 'svc-block--wide']}>
       <div class="svc-block__copy">
-        {s.eyebrow && <p class="eyebrow">{t(s.eyebrow)}</p>}
+        {s.eyebrow && <p class="section-label">{t(s.eyebrow)}</p>}
         <h2 id={hid} set:html={t(s.h2)} />
         <div class:list={['svc-block__body', (side || !wide) && 'prose']} set:html={t(s.html)} />
       </div>

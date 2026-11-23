@@ -20,17 +20,17 @@ const groupP: Record<string, string> = {
   addon: 'The extras that turn up on exit condition reports: ovens, tracks, walls and outdoor areas.',
 };
 ---
-<BaseLayout title="Bond & End of Lease Cleaning Services | Bond Cleaning Brisbane Co." description="Every bond cleaning service we offer in Brisbane: end of lease, vacate and exit, move-out and move-in, houses, apartments, carpets, ovens, windows and add-ons. Fixed prices, photo reports." crumbs={crumbs}>
+<BaseLayout title="Bond & End of Lease Cleaning Services | Bond Cleaning Brisbane Co." description="Every bond cleaning service we offer in Brisbane: end of lease, vacate and exit, move-out and move-in, houses, apartments, carpets, ovens, windows and add-ons. Fixed prices, photo reports." crumbs={crumbs} bodyClass="page-services">
   <PageHero eyebrow="Bond cleans only" h1="Our Bond Cleaning Services">
     <p class="lead">Our bond cleaning services in Brisbane cover one job done properly: getting your rental back to its entry condition so your bond comes back. A bond clean, end of lease clean, vacate clean and exit clean are all the same thing. Every service below comes with a fixed price, a photo report and the re-clean promise.</p>
     <PromiseChips />
     <Fragment slot="aside"><img class="page-hero__seal" src="/images/brand/seal.svg" alt="Bond cleaning services Brisbane: the Inspection Ready seal from Bond Cleaning Brisbane Co." width="260" height="260" loading="lazy" decoding="async" /></Fragment>
   </PageHero>
   {serviceGroups.map((g, gi) => (
-    <section class:list={['section', 'section--services', gi % 2 === 0 ? 'section--bg' : '']} aria-labelledby={`g-${g.key}`}>
+    <section class:list={['section', 'section--services', gi % 2 === 0 ? 'surface-aqua' : 'surface-ivory']} aria-labelledby={`g-${g.key}`}>
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">{g.name}</p>
+          <p class="section-label">{g.name}</p>
           <h2 id={`g-${g.key}`}>{groupH2[g.key]}</h2>
           <p>{groupP[g.key]}</p>
         </div>

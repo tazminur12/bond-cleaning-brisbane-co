@@ -8,7 +8,7 @@ import { posts } from '../../content/blog';
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Guides', href: '/blog/' }];
 const fmt = (d: string) => new Date(d).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
-<BaseLayout title="Bond Cleaning Tips & QLD Guides | Bond Cleaning Brisbane Co." description="Plain-English bond cleaning tips and end of lease guides for Queensland renters: carpets, final inspections, prices and whether a professional clean is worth it." crumbs={crumbs}>
+<BaseLayout title="Bond Cleaning Tips & QLD Guides | Bond Cleaning Brisbane Co." description="Plain-English bond cleaning tips and end of lease guides for Queensland renters: carpets, final inspections, prices and whether a professional clean is worth it." crumbs={crumbs} bodyClass="page-core">
   <PageHero eyebrow="Guides · QLD rules in plain English" h1="Bond Back Guides for Brisbane Renters">
     <p class="lead">Honest bond cleaning tips and end of lease guides for Queensland, written by people who clean Brisbane rentals every week. Every guide starts with the answer and links to the RTA where a rule comes from.</p>
     <Fragment slot="aside"><img class="page-hero__seal" src="/images/brand/seal.svg" alt="Bond cleaning tips from Bond Cleaning Brisbane Co.: the Inspection Ready seal" width="240" height="240" loading="lazy" decoding="async" /></Fragment>
@@ -17,7 +17,7 @@ const fmt = (d: string) => new Date(d).toLocaleDateString('en-AU', { day: 'numer
   <section class="section section--bg section--blog" aria-labelledby="posts-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">Latest</p>
+        <p class="section-label">Latest</p>
         <h2 id="posts-h2">Latest bond cleaning tips and guides</h2>
       </div>
       <ul class="blog-grid" role="list">

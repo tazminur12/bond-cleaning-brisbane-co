@@ -11,7 +11,7 @@ import { telHref, waHref, mailHref, t } from '../lib/tpl';
 import { contactPage } from '../lib/schema';
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Contact', href: '/contact/' }];
 ---
-<BaseLayout title="Contact & Free Quote | Bond Cleaning Brisbane Co." description="Get a fixed-price bond cleaning quote in Brisbane. Four taps, then your details, and we text your price within 15 minutes during business hours. Phone, WhatsApp or email." crumbs={crumbs} schema={[contactPage()]}>
+<BaseLayout title="Contact & Free Quote | Bond Cleaning Brisbane Co." description="Get a fixed-price bond cleaning quote in Brisbane. Four taps, then your details, and we text your price within 15 minutes during business hours. Phone, WhatsApp or email." crumbs={crumbs} schema={[contactPage()]} bodyClass="page-core">
   <PageHero eyebrow="Fixed price in writing" h1="Get a Fixed-Price Bond Cleaning Quote">
     <p class="lead" set:html={t('Get your bond cleaning quote in Brisbane in under a minute. Tell us the suburb and size, add a few photos, and we\'ll text a fixed price within {replyTime} during business hours. Looking for a bond cleaner near you? If you\'re on the Northside or in the inner north, we\'re local.')} />
     <ul class="contact-channels">
@@ -35,7 +35,7 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Contact', href: '/contact/
           <div class="contact-next__intro">
             <img class="contact-next__seal" src="/images/brand/seal.svg" alt="Bond cleaning quote Brisbane: the Inspection Ready seal and our re-clean promise" width="120" height="120" loading="lazy" decoding="async" />
             <div class="contact-next__copy">
-              <p class="eyebrow">What happens next</p>
+              <p class="section-label">What happens next</p>
               <h2 id="next-h2">After you ask for a bond cleaning quote in Brisbane</h2>
             </div>
           </div>
@@ -54,7 +54,7 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Contact', href: '/contact/
   <section class="section section--areas" aria-labelledby="areas-h2">
     <div class="container">
       <div class="section-head areas-intro">
-        <p class="eyebrow">Where we clean</p>
+        <p class="section-label">Where we clean</p>
         <h2 id="areas-h2">The 20 suburbs we serve</h2>
         <p>No street address: we come to you. We clean Brisbane's Northside and inner north only.</p>
       </div>

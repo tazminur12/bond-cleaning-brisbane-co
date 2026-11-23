@@ -51,7 +51,7 @@ const howCards = [
   },
 ];
 ---
-<BaseLayout title="About Us | Bond Cleaning Brisbane Co." description="Bond Cleaning Brisbane Co. is a bond cleaning company in Brisbane that only does exit cleans, only on the Northside and inner north. How we work, insurance, police checks and our standards." crumbs={crumbs} schema={[aboutPage()]}>
+<BaseLayout title="About Us | Bond Cleaning Brisbane Co." description="Bond Cleaning Brisbane Co. is a bond cleaning company in Brisbane that only does exit cleans, only on the Northside and inner north. How we work, insurance, police checks and our standards." crumbs={crumbs} schema={[aboutPage()]} bodyClass="page-core">
   <PageHero eyebrow="Built for one day: your final inspection" h1="About Bond Cleaning Brisbane Co.">
     <p class="lead">{business.identity} We're a bond cleaning company in Brisbane that does one thing: the clean that decides whether you get your bond back.</p>
     <Fragment slot="aside"><img class="page-hero__logo" src="/images/brand/logo-stacked.svg" alt="Bond Cleaning Brisbane Co., a bond cleaning company in Brisbane" width="360" height="216" loading="lazy" decoding="async" /></Fragment>
@@ -60,7 +60,7 @@ const howCards = [
   <section class="section section--sand section--story" aria-labelledby="story-h2">
     <div class="container">
       <div class="story-panel">
-        <p class="eyebrow">Our story</p>
+        <p class="section-label">Our story</p>
         <h2 id="story-h2">Built for one day: your final inspection</h2>
         <div class="story-panel__copy">
           <p>Most cleaning companies do a bit of everything. We do one thing. Bond Cleaning Brisbane Co. was set up by [FOUNDER / TEAM NAME] after seeing the same thing again and again: tenants who'd paid for a "bond clean" and still lost part of their bond to dusty fan blades, greasy rangehood filters and grime in the window tracks.</p>
@@ -74,7 +74,7 @@ const howCards = [
   {team.length > 0 && (
     <section class="section" aria-labelledby="team-h2">
       <div class="container">
-        <div class="section-head"><p class="eyebrow">The team</p><h2 id="team-h2">The people who clean your rental</h2></div>
+        <div class="section-head"><p class="section-label">The team</p><h2 id="team-h2">The people who clean your rental</h2></div>
         <div class="grid grid-3">{team.map((m) => <figure class="card"><img src={m.photo} alt={m.name} width="600" height="600" loading="lazy" /><figcaption><strong>{m.name}</strong><br />{m.role}</figcaption></figure>)}</div>
       </div>
     </section>
@@ -83,7 +83,7 @@ const howCards = [
   <section class="section section--how" aria-labelledby="how-h2">
     <div class="container">
       <div class="section-head">
-        <p class="eyebrow">How we work</p>
+        <p class="section-label">How we work</p>
         <h2 id="how-h2">A bond cleaning company in Brisbane with one standard</h2>
       </div>
       <div class="how-grid">
@@ -106,7 +106,7 @@ const howCards = [
     <div class="container">
       <div class="north-layout">
         <div class="north-copy">
-          <p class="eyebrow">Why Northside only</p>
+          <p class="section-label">Why Northside only</p>
           <h2 id="north-h2">Local bond cleaners, on purpose</h2>
           <p>We could take jobs across all of Brisbane. We don't, because driving from Springfield to Sandgate isn't how you do a good bond clean. Keeping to the Northside and inner north means shorter travel, reliable start times, backup crews nearby if someone is sick, and a team that knows which CBD towers need a dock booking and which Wavell Heights highsets have a downstairs laundry.</p>
           <p>See <a href="/areas/">the 20 suburbs we clean</a>.</p>

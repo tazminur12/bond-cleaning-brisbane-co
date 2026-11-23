@@ -53,7 +53,7 @@ const total = rooms.reduce((n, r) => n + r.items.length, 0);
 const faqs = pick('A6', 'A1', 'A5', 'D24');
 const crumbs = [{ name: 'Home', href: '/' }, { name: 'Bond cleaning checklist', href: '/bond-cleaning-checklist/' }];
 ---
-<BaseLayout title="Bond Cleaning Checklist QLD | Bond Cleaning Brisbane Co." description="The room-by-room bond cleaning checklist we clean to, based on what Queensland property managers check at the final inspection. Tick it off online or print it." crumbs={crumbs} schema={[faqPage(faqs)]}>
+<BaseLayout title="Bond Cleaning Checklist QLD | Bond Cleaning Brisbane Co." description="The room-by-room bond cleaning checklist we clean to, based on what Queensland property managers check at the final inspection. Tick it off online or print it." crumbs={crumbs} schema={[faqPage(faqs)]} bodyClass="page-core">
   <PageHero eyebrow="Free · Printable · QLD" h1="The Brisbane Bond Cleaning Checklist (QLD)">
     <div class="lead">
       <p>This is the room-by-room checklist we clean to. It follows what Queensland property managers check against the entry condition report. Use this bond cleaning checklist (QLD) to do the job yourself, or to check any cleaner's work before your final inspection.</p>
@@ -91,7 +91,7 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Bond cleaning checklist', 
     <div class="container">
       <div class="checklist-agents">
         <div class="checklist-agents__copy">
-          <p class="eyebrow">How the inspection works</p>
+          <p class="section-label">How the inspection works</p>
           <h2 id="agents-h2">What do agents check at the final inspection?</h2>
           <p set:html={`Your property manager compares the property with the entry condition report you signed when you moved in, room by room, using the exit condition report (Form 14a). Anything dirtier than it was at the start, beyond fair wear and tear, can be claimed against your bond. The ${rta(RTA_CLEAN, 'RTA explains the cleaning standard here')}.`} />
           <p>The end of lease cleaning checklist below is grouped the way an inspection runs. Items marked <span class="cl-missed" aria-label="Often missed">Often missed</span> are the ones we see on agents' lists most.</p>
@@ -116,7 +116,7 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Bond cleaning checklist', 
   <section class="section section--checklist-rooms" id="rooms" aria-labelledby="list-h2">
     <div class="container">
       <div class="section-head checklist-rooms__head">
-        <p class="eyebrow">Tick as you go</p>
+        <p class="section-label">Tick as you go</p>
         <h2 id="list-h2">Bond cleaning checklist QLD: room by room</h2>
       </div>
 
@@ -180,7 +180,7 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Bond cleaning checklist', 
   <section class="section section--bg section--faq" aria-labelledby="faq-h2">
     <div class="container container--narrow">
       <div class="section-head">
-        <p class="eyebrow">Questions</p>
+        <p class="section-label">Questions</p>
         <h2 id="faq-h2">Checklist questions</h2>
       </div>
       <FaqList items={faqs} />
