@@ -62,8 +62,24 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Bond cleaning checklist', 
       <button class="btn btn--primary btn--lg" type="button" data-print><Icon name="printer" />Download or print as PDF</button>
       <a class="btn btn--secondary btn--lg" href="#rooms">Start ticking</a>
     </div>
-    <Fragment slot="aside"><img src="/images/brand/seal.svg" alt="Bond cleaning checklist QLD from Bond Cleaning Brisbane Co.: the Inspection Ready seal" width="240" height="240" style="width:min(220px,60%);margin:24px auto 0" /></Fragment>
     <p class="small muted">Your ticks are saved in this browser only, so you can come back to it. Nothing is sent to us.</p>
+    <Fragment slot="aside">
+      <div class="checklist-hero-aside">
+        <img
+          class="page-hero__seal checklist-hero-aside__seal"
+          src="/images/brand/seal.svg"
+          alt="Bond cleaning checklist QLD from Bond Cleaning Brisbane Co.: the Inspection Ready seal"
+          width="240"
+          height="240"
+          decoding="async"
+        />
+        <p class="checklist-hero-aside__meta">
+          <span>{total} items</span>
+          <span class="checklist-hero-aside__dot" aria-hidden="true"></span>
+          <span>{rooms.length} rooms</span>
+        </p>
+      </div>
+    </Fragment>
   </PageHero>
 
   <div class="print-only container">
@@ -71,53 +87,102 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Bond cleaning checklist', 
     <p>bondcleaningco.com · The QLD bond cleaning checklist we clean to</p>
   </div>
 
-  <section class="section section--bg" aria-labelledby="agents-h2">
+  <section class="section section--sand section--checklist-agents" aria-labelledby="agents-h2">
     <div class="container">
-      <div class="split split--top">
-        <div class="prose">
+      <div class="checklist-agents">
+        <div class="checklist-agents__copy">
           <p class="eyebrow">How the inspection works</p>
           <h2 id="agents-h2">What do agents check at the final inspection?</h2>
           <p set:html={`Your property manager compares the property with the entry condition report you signed when you moved in, room by room, using the exit condition report (Form 14a). Anything dirtier than it was at the start, beyond fair wear and tear, can be claimed against your bond. The ${rta(RTA_CLEAN, 'RTA explains the cleaning standard here')}.`} />
-          <p>The end of lease cleaning checklist below is grouped the way an inspection runs. Items marked <span class="badge badge--soft">Often missed</span> are the ones we see on agents' lists most.</p>
+          <p>The end of lease cleaning checklist below is grouped the way an inspection runs. Items marked <span class="cl-missed" aria-label="Often missed">Often missed</span> are the ones we see on agents' lists most.</p>
         </div>
-        <div class="card">
-          <h3>Commonly missed at inspection</h3>
-          <ul class="ticks mb-0">
-            <li>Window and sliding door tracks</li><li>Top of door frames</li><li>Skirting boards</li><li>Light switches</li><li>Rangehood filter</li><li>Exhaust fans</li><li>Inside the dishwasher filter</li><li>Under the fridge space</li>
+        <aside class="checklist-missed" aria-labelledby="missed-h3">
+          <h3 id="missed-h3">Commonly missed at inspection</h3>
+          <ul class="checklist-missed__list">
+            <li>Window and sliding door tracks</li>
+            <li>Top of door frames</li>
+            <li>Skirting boards</li>
+            <li>Light switches</li>
+            <li>Rangehood filter</li>
+            <li>Exhaust fans</li>
+            <li>Inside the dishwasher filter</li>
+            <li>Under the fridge space</li>
           </ul>
-        </div>
+        </aside>
       </div>
     </div>
   </section>
 
-  <section class="section" id="rooms" aria-labelledby="list-h2">
+  <section class="section section--checklist-rooms" id="rooms" aria-labelledby="list-h2">
     <div class="container">
-      <div class="section-head"><p class="eyebrow">Tick as you go</p><h2 id="list-h2">Bond cleaning checklist QLD: room by room</h2></div>
-      <div class="cl-progress" data-cl-progress><span><span data-cl-done>0</span> of {total} done</span><span class="bar" aria-hidden="true"><span data-cl-bar></span></span><button class="btn btn--sm btn--secondary no-print" type="button" data-cl-reset>Reset</button></div>
-      {rooms.map((r) => (
-        <div class="checklist-room" id={r.id}>
-          <div class:list={[r.photo && 'split split--top']}>
-            <div>
-              <div class="checklist-room__head">
-                <h2><Icon name={r.icon} />{r.name}</h2>
-                <span class="checklist-count" data-cl-count={r.id}>0 / {r.items.length}</span>
-              </div>
-              <ul class="cl-items">
-                {r.items.map(([label, missed], i) => (
-                  <li><label><input type="checkbox" data-cl={`${r.id}-${i}`} /><span>{label}{missed && <span class="badge badge--soft missed">Often missed</span>}</span></label></li>
-                ))}
-              </ul>
-            </div>
-            {r.photo && <div class="no-print"><PhotoFigure k={r.photo} sizes="(min-width: 960px) 480px, 92vw" /></div>}
-          </div>
+      <div class="section-head checklist-rooms__head">
+        <p class="eyebrow">Tick as you go</p>
+        <h2 id="list-h2">Bond cleaning checklist QLD: room by room</h2>
+      </div>
+
+      <div class="cl-progress" data-cl-progress>
+        <div class="cl-progress__meta">
+          <span class="cl-progress__label">Inspection progress</span>
+          <span class="cl-progress__count"><span data-cl-done>0</span> of {total} done</span>
         </div>
-      ))}
+        <div
+          class="cl-progress__track"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax={total}
+          aria-valuenow="0"
+          aria-labelledby="list-h2"
+          data-cl-track
+        >
+          <span class="cl-progress__bar" aria-hidden="true"><span data-cl-bar></span></span>
+        </div>
+        <button class="btn btn--sm btn--secondary no-print" type="button" data-cl-reset>Reset</button>
+      </div>
+
+      <div class="checklist-rooms">
+        {rooms.map((r) => (
+          <article class="checklist-room" id={r.id} data-cl-room={r.id}>
+            <div class:list={['checklist-room__grid', r.photo && 'checklist-room__grid--photo']}>
+              <div class="checklist-room__main">
+                <header class="checklist-room__head">
+                  <h3 class="checklist-room__title">
+                    <span class="checklist-room__icon" aria-hidden="true"><Icon name={r.icon} /></span>
+                    {r.name}
+                  </h3>
+                  <span class="checklist-count" data-cl-count={r.id}>0 / {r.items.length}</span>
+                </header>
+                <ul class="cl-items">
+                  {r.items.map(([label, missed], i) => (
+                    <li>
+                      <label class="cl-item">
+                        <input type="checkbox" data-cl={`${r.id}-${i}`} />
+                        <span class="cl-item__text">
+                          {label}
+                          {missed && <span class="cl-missed">Often missed</span>}
+                        </span>
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {r.photo && (
+                <div class="checklist-room__photo no-print">
+                  <PhotoFigure k={r.photo} sizes="(min-width: 960px) 420px, 92vw" />
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="section section--bg" aria-labelledby="faq-h2">
+  <section class="section section--bg section--faq" aria-labelledby="faq-h2">
     <div class="container container--narrow">
-      <div class="section-head"><p class="eyebrow">Questions</p><h2 id="faq-h2">Checklist questions</h2></div>
+      <div class="section-head">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-h2">Checklist questions</h2>
+      </div>
       <FaqList items={faqs} />
       <p class="mt-2 no-print">Rather not do it yourself? Our <a href="/end-of-lease-cleaning-brisbane/">end of lease cleaning</a> follows this list exactly, with a photo of every room. See <a href="/pricing/">bond cleaning prices</a>.</p>
     </div>
@@ -130,14 +195,19 @@ const crumbs = [{ name: 'Home', href: '/' }, { name: 'Bond cleaning checklist', 
   let state: Record<string, boolean> = {};
   try { state = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch { /* storage unavailable */ }
   const boxes = Array.from(document.querySelectorAll<HTMLInputElement>('[data-cl]'));
+  const track = document.querySelector<HTMLElement>('[data-cl-track]');
   const update = () => {
     const done = boxes.filter((b) => b.checked).length;
     document.querySelector('[data-cl-done]')!.textContent = String(done);
     (document.querySelector('[data-cl-bar]') as HTMLElement).style.width = `${(done / boxes.length) * 100}%`;
+    if (track) track.setAttribute('aria-valuenow', String(done));
     document.querySelectorAll<HTMLElement>('[data-cl-count]').forEach((el) => {
       const room = el.dataset.clCount!;
       const list = boxes.filter((b) => b.dataset.cl!.startsWith(`${room}-`));
-      el.textContent = `${list.filter((b) => b.checked).length} / ${list.length}`;
+      const roomDone = list.filter((b) => b.checked).length;
+      el.textContent = `${roomDone} / ${list.length}`;
+      const article = document.querySelector(`[data-cl-room="${room}"]`);
+      article?.toggleAttribute('data-complete', roomDone === list.length && list.length > 0);
     });
   };
   boxes.forEach((b) => {
