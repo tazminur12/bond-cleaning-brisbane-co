@@ -28,7 +28,6 @@ export function localBusiness() {
     image: siteUrl('/images/og-bond-cleaning-brisbane-co.jpg'),
     telephone: business.phoneSchema || business.phoneE164,
     email: business.email,
-    priceRange: '$$',
     address: { '@type': 'PostalAddress', addressLocality: 'Brisbane', addressRegion: 'QLD', addressCountry: 'AU' },
     areaServed: allPlaces(),
     openingHoursSpecification: [

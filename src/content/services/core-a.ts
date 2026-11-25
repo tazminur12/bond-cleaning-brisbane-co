@@ -70,10 +70,17 @@ ${callout('Fair wear and tear covers ageing from normal use, like faded paint or
         html: "<p>Plenty of our end of lease cleans are for people who have already driven to Sydney or flown home. You don't need to be there. Leave the keys in a lockbox or with the agent, and we'll handle access, send photos when we finish, and deal with the re-clean if the agent sends a list.</p>",
         component: 'noNeed',
       },
+      {
+        id: 'carpet-included',
+        eyebrow: 'Included free',
+        h2: 'Carpet steam cleaning included, free',
+        html: '<p>Carpets are checked at every exit inspection. We steam clean them as part of the bond clean at no extra cost, and you get the receipt your agent may ask for. Carpet steam cleaning is {carpet}.</p>',
+        bg: 'sand',
+      },
     ],
     price: {
-      h2: 'End of lease cleaning Brisbane prices',
-      html: `<p>We price end of lease cleans by bedrooms, bathrooms and condition, never by the hour. A 1-bed unit starts at {price:b1}, a 2-bed at {price:b2}, a 3-bed house at {price:b3}. Carpets are {carpet}. Your fixed price arrives in writing before we book you in, and it doesn't move on the day.</p>`,
+      h2: 'End of lease cleaning Brisbane quotes',
+      html: `<p>Every property is different, so we price each clean on your home and what you need. Tell us a few details and we'll send you a fixed quote, with no hidden fees. Carpets are {carpet}. Your quote arrives in writing before we book you in, and it doesn't move on the day.</p>`,
     },
     faqs: [
       { id: 'eol1', q: 'Is end of lease cleaning the same as a bond clean?', a: 'Yes. In Queensland, end of lease, bond, vacate and exit cleaning all mean the same job: returning the property to its entry condition, less fair wear and tear.' },

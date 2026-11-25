@@ -6,11 +6,11 @@ interface Props { h2?: string; intro?: string; eyebrow?: string; bg?: boolean }
 const { h2 = 'How it works', intro, eyebrow = 'Four steps', bg = false } = Astro.props;
 const steps = [
   { h: 'Send photos or answer 4 questions', p: 'Bedrooms, bathrooms, carpets and your inspection date. Photos of the oven, bathroom and carpets help most.' },
-  { h: 'Get a fixed price in writing', p: t('Usually within {replyTime} during business hours. The price, what\'s included and what isn\'t, all in writing.') },
+  { h: 'Get a free quote in writing', p: t('Usually within {replyTime} during business hours. The quote, what\'s included and what isn\'t, all in writing. Carpet steam cleaning is {carpet}.') },
   { h: "We clean to the agent's checklist", p: 'Room by room, to the exit condition report your property manager uses, and we photograph every room when we finish.' },
   {
     h: flags.payAfter ? `${b('payAfter', 'Pay after the clean')}, forward the photos` : 'Forward the photo report',
-    p: t('Send the report to your agent. If they flag anything we cleaned, we come back {reclean} and fix it free.'),
+    p: t('Send the report to your agent. If they flag anything we cleaned: {bondBack}'),
   },
 ];
 const hasFollow = Astro.slots.has('default');

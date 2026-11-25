@@ -50,7 +50,7 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
           <h1>{area.h1}</h1>
           <div class="lead hero__lead" set:html={t(c.intro)} />
           <div class="btn-row btn-row--stack">
-            <a class="btn btn--primary btn--lg" href="#quote">Get my fixed price</a>
+            <a class="btn btn--primary btn--lg" href="#quote">Get a Free Quote</a>
             <a class="btn btn--secondary btn--lg" href={telHref()} data-track="call_click" data-track-location="area-hero"><Icon name="phone" />Call {business.phone}</a>
             <a class="btn btn--secondary btn--lg" href={waHref(waMsg)} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="area-hero"><Icon name="whatsapp" />WhatsApp</a>
           </div>

@@ -33,7 +33,7 @@ const isCurrent = (href: string) => (path === href ? 'page' : undefined);
 
     <div class="header-cta">
       <a class="header-phone" href={telHref()} data-track="call_click" data-track-location="header"><Icon name="phone" />{business.phone}</a>
-      <a class="btn btn--primary btn--sm header-quote" href="/contact/#quote" data-quote-link>Get my fixed price</a>
+      <a class="btn btn--primary btn--sm header-quote" href="/contact/#quote" data-quote-link>Get a Free Quote</a>
       <a class="icon-btn icon-btn--mint header-call-icon" href={telHref()} aria-label={`Call ${business.phone}`} data-track="call_click" data-track-location="header-mobile"><Icon name="phone" /></a>
       <button class="icon-btn menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" data-menu-open><Icon name="menu" /></button>
     </div>
@@ -55,7 +55,7 @@ const isCurrent = (href: string) => (path === href ? 'page' : undefined);
       </div>
       <div class="mega__foot">
         <a href="/services/">All bond cleaning services</a>
-        <a href="/pricing/">Bond cleaning prices</a>
+        <a href="/pricing/">Get a Quote</a>
         <a href="/bond-cleaning-checklist/">The QLD bond cleaning checklist</a>
       </div>
     </div>
@@ -127,6 +127,6 @@ const isCurrent = (href: string) => (path === href ? 'page' : undefined);
   </nav>
   <div class="mobile-menu__cta">
     <a class="btn btn--mint btn--lg" href={telHref()} data-track="call_click" data-track-location="menu"><Icon name="phone" />Call {business.phone}</a>
-    <a class="btn btn--primary btn--lg" href="/contact/#quote">Get my fixed price</a>
+    <a class="btn btn--primary btn--lg" href="/contact/#quote">Get a Free Quote</a>
   </div>
 </div>

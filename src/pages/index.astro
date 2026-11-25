@@ -13,7 +13,6 @@ import Steps from '../components/Steps.astro';
 import DayTimeline from '../components/DayTimeline.astro';
 import PhotoReport from '../components/PhotoReport.astro';
 import Packages from '../components/Packages.astro';
-import PriceCards from '../components/PriceCards.astro';
 import Guarantee from '../components/Guarantee.astro';
 import AreasGrid from '../components/AreasGrid.astro';
 import NorthsideMap from '../components/NorthsideMap.astro';
@@ -56,12 +55,13 @@ const featuredSlugs = new Set(featuredServices.map((f) => f.slug));
         <div class="hero__copy">
           <p class="eyebrow eyebrow--soft">Brisbane Northside &amp; inner north</p>
           <h1 id="h1">Bond Cleaning in Brisbane</h1>
+          <p class="hero-offer" set:html={t('<span aria-hidden="true">✓</span> Complimentary carpet steam cleaning with every bond clean')} />
           <div class="lead hero__lead">
-            <p set:html={t(`${business.identity} A fixed-price bond clean, done to your agent's checklist, with a room-by-room photo report the same day. If your property manager flags anything we cleaned, we come back {reclean} and fix it free.`)} />
+            <p set:html={t(`${business.identity} A bond clean done to your agent's checklist, with a room-by-room photo report the same day. If your property manager flags anything we cleaned, send their exit report: {bondBack}`)} />
             <p class="mb-0">Serving the CBD, New Farm, the Valley and up to Chermside, Aspley and North Lakes.</p>
           </div>
           <div class="hero__actions btn-row btn-row--stack">
-            <a class="btn btn--primary btn--lg" href="#quote">Get my fixed price</a>
+            <a class="btn btn--primary btn--lg" href="#quote">Get a Free Quote</a>
             <a class="btn btn--secondary btn--lg" href={telHref()} data-track="call_click" data-track-location="home-hero"><Icon name="phone" />Call {business.phone}</a>
           </div>
           <PromiseChips />
@@ -246,17 +246,20 @@ const featuredSlugs = new Set(featuredServices.map((f) => f.slug));
     </div>
   </section>
 
-  <!-- 10. Pricing teaser + packages -->
+  <!-- 10. Quote-based pricing (guide) + packages -->
   <section class="section section--price surface-ivory" aria-labelledby="price-h2">
     <div class="container">
-      <div class="section-head section-head--split">
-        <div class="section-head__main">
-          <p class="eyebrow eyebrow--soft">Fixed by bedrooms</p>
-          <h2 id="price-h2">Bond cleaning prices in Brisbane, fixed by bedrooms</h2>
+      <div class="quote-offer">
+        <p class="section-label">Free quote</p>
+        <h2 id="price-h2">Get your free bond cleaning quote</h2>
+        <p class="lead mb-0">Every property is different, so we price each clean on your home and what you need. Tell us a few details and we'll send you a fixed quote, with no hidden fees.</p>
+        <p class="quote-offer__ask muted">What we'll ask: property type · bedrooms and bathrooms · suburb · moving-out date · any extras (blinds, walls, balcony, garage)</p>
+        <p class="hero-offer hero-offer--inline" set:html={t('<span aria-hidden="true">✓</span> Complimentary carpet steam cleaning with every bond clean')} />
+        <div class="btn-row btn-row--stack quote-offer__actions">
+          <a class="btn btn--primary btn--lg" href="#quote">Get a Free Quote</a>
+          <a class="btn btn--secondary btn--lg" href={telHref()} data-track="call_click" data-track-location="home-pricing"><Icon name="phone" />Call {business.phone}</a>
         </div>
-        <p class="section-head__aside" set:html={t('Most Brisbane bond cleans cost between about $250 and $600 before carpets. Ours are fixed by bedrooms and bathrooms, from {price:b1} for a 1-bed unit. No hourly rates, no surprises on the day.')} />
       </div>
-      <PriceCards only={['b1', 'b2', 'b3']} />
       <div class="price-packages">
         <div class="price-packages__head">
           <h3>Three packages, one booking</h3>
@@ -265,7 +268,7 @@ const featuredSlugs = new Set(featuredServices.map((f) => f.slug));
         <Packages />
       </div>
       <div class="price-foot">
-        <a class="btn btn--secondary btn--lg" href="/pricing/">See all bond cleaning prices, add-ons and how long each clean takes</a>
+        <a class="btn btn--secondary btn--lg" href="/pricing/">Get a Quote — add-ons and how long each clean takes</a>
       </div>
     </div>
   </section>

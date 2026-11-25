@@ -65,7 +65,7 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
           <div class="lead hero__lead" set:html={t(c.intro)} />
           {c.tier !== 1 && (
             <div class="btn-row btn-row--stack">
-              <a class="btn btn--primary btn--lg" href="#quote">Get my fixed price</a>
+              <a class="btn btn--primary btn--lg" href="#quote">Get a Free Quote</a>
               <a class="btn btn--secondary btn--lg" href={telHref()} data-track="call_click" data-track-location="service-hero"><Icon name="phone" />Call {business.phone}</a>
               <a class="btn btn--secondary btn--lg" href={waHref()} target="_blank" rel="noopener" data-track="whatsapp_click" data-track-location="service-hero"><Icon name="whatsapp" />WhatsApp</a>
             </div>
@@ -80,14 +80,14 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
               <p class="service-guarantee-card__title">The short version</p>
               <ul class="ticks mb-0">
                 <li>Free re-clean of anything we cleaned that the agent flags</li>
-                <li set:html={t('We come back {reclean} of your list')} />
+                <li set:html={t('{bondBack}')} />
                 <li>On every bond clean, nothing to buy to unlock it</li>
                 <li>Written on your quote and invoice</li>
               </ul>
-              <a class="btn btn--primary btn--block" href="#quote">Get my fixed price</a>
+              <a class="btn btn--primary btn--block" href="#quote">Get a Free Quote</a>
             </div>
           ) : (
-            <QuoteForm id="qt" anchor location={`${svc.slug}-top`} title={c.tier === 1 ? 'Price it from photos' : 'Get your fixed price'} />
+            <QuoteForm id="qt" anchor location={`${svc.slug}-top`} title={c.tier === 1 ? 'Price it from photos' : 'Get a Free Quote'} />
           )}
         </div>
       </div>
@@ -173,7 +173,7 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
           <p><a href="/pricing/">See all bond cleaning prices and add-ons</a></p>
         </div>
         <aside class="service-price__aside">
-          <h3>How your fixed price works</h3>
+          <h3>How your free quote works</h3>
           <ul class="ticks mb-0">
             <li>Set from your photos, before we arrive</li>
             <li>Written down with what's included and what isn't</li>
@@ -234,7 +234,7 @@ const waMsg = c.tier === 1 ? "Hi, I need an urgent bond clean. Here are photos a
     <div class="container">
       <div class="section-head section-head--center">
         <p class="section-label">Ready when you are</p>
-        <h2 id="bottom-quote-h2">Get your fixed price in 60 seconds</h2>
+        <h2 id="bottom-quote-h2">Get a Free Quote in 60 seconds</h2>
       </div>
       <QuoteForm id="qb" location={`${svc.slug}-bottom`} />
     </div>

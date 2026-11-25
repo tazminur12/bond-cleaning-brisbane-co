@@ -71,7 +71,7 @@ export const faqs: Record<string, Faq> = {
   B9: {
     id: 'B9',
     q: 'How much is a bond clean in Brisbane?',
-    a: 'Most bond cleans in Brisbane cost between about $250 and $600 before carpets, depending on size and condition. Ours are fixed prices by bedrooms and bathrooms: {price:b1} for a 1 bed, {price:b2} for a 2 bed, {price:b3} for a 3 bed and {price:b4} for a 4 bed. See our <a href="/pricing/">bond cleaning prices</a>.',
+    a: 'Every quote is based on your property size, condition and the services you need. Send us your details for a free, fixed quote. See <a href="/pricing/">Get a Quote</a>.',
   },
   B10: {
     id: 'B10',
@@ -86,8 +86,8 @@ export const faqs: Record<string, Faq> = {
   },
   B12: {
     id: 'B12',
-    q: 'Is carpet steam cleaning included?',
-    a: '{?freeCarpet}[Yes, free with every full bond clean], and you get the receipt the agent may ask for.{/freeCarpet}{!freeCarpet}It\'s an add-on from {price:carpetRoom} per room, and you get the receipt the agent may ask for.{/freeCarpet}',
+    q: 'Is carpet cleaning included?',
+    a: '{?freeCarpet}Yes. Carpet steam cleaning is complimentary with every bond clean, and you get the receipt the agent may ask for.{/freeCarpet}{!freeCarpet}It\'s an add-on quoted per room, and you get the receipt the agent may ask for.{/freeCarpet}',
   },
   B13: {
     id: 'B13',
@@ -111,12 +111,12 @@ export const faqs: Record<string, Faq> = {
   C16: {
     id: 'C16',
     q: "What happens if the agent isn't happy?",
-    a: "Send us the agent's list. We come back {reclean} and fix anything on it that we cleaned, free, until the agent signs off. See our <a href=\"/bond-back-guarantee/\">bond back guarantee</a>.",
+    a: "Send us the agent's list with your exit report. {bondBack} See our <a href=\"/bond-back-guarantee/\">bond back guarantee</a>.",
   },
   C17: {
     id: 'C17',
     q: 'Is your bond back guarantee real?',
-    a: "Yes. It's written on your quote and invoice. It covers a free re-clean of anything we cleaned that the agent flags within {guaranteeDays} of the clean. It can't cover damage, repairs or things outside the cleaning scope.",
+    a: "Yes. It's written on your quote and invoice. {bondBack} It covers a free re-clean of anything we cleaned that the agent flags. It can't cover damage, repairs or things outside the cleaning scope.",
   },
   C18: {
     id: 'C18',

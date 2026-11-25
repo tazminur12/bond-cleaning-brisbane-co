@@ -1,14 +1,15 @@
 ---
 import Icon from './Icon.astro';
 import { flags } from '../config/site';
-import { b } from '../lib/tpl';
+import { b, t } from '../lib/tpl';
 interface Props { extra?: string[] }
 const { extra = [] } = Astro.props;
 const chips = [
-  'Fixed price from photos',
+  ...(flags.freeCarpet ? [t('Complimentary carpet steam cleaning')] : []),
+  'Free quote from your details',
   ...(flags.payAfter ? [b('payAfter', 'Pay after the clean')] : []),
   'Photo-proof report',
-  'Free re-clean if flagged',
+  'Bond Back Guarantee',
   ...extra,
 ];
 ---

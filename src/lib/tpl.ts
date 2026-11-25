@@ -3,10 +3,11 @@
  * promises come from src/config/site.ts.
  *
  *   {phone} {email} {hours} {replyTime} {cutOff} {pestPartner} {insurance}
- *   {reclean}        → "within [24 hours]" (or "as fast as we can" if the window flag is null)
- *   {guaranteeDays}  → "[7 days]"
- *   {carpet}         → "[free with every full bond clean]" or "an add-on from [$] per room"
- *   {price:b2}       → "$330" or "[$]"
+ *   {reclean}        → "subject to team availability" (or "within N hours" if set)
+ *   {guaranteeDays}  → "5 days" (COTG Bond Back window)
+ *   {bondBack}       → full COTG Bond Back Guarantee sentence
+ *   {carpet}         → "complimentary with every bond clean" or add-on wording
+ *   {price:b2}       → "$330" or "a free quote" when quote-based
  *   {cancel}         → "[up to 48 hours before]"
  *   {?flag}…{/flag}  → kept only when the flag is on
  *   {!flag}…{/flag}  → kept only when the flag is off
@@ -23,21 +24,28 @@ export const flagOn = (key: string): boolean => {
   return v !== false && v !== null && v !== undefined;
 };
 
+/** Quote-based: no dollar figures until a real number is set in site.ts. */
 export const price = (key: string): string => {
   const v = prices[key];
-  return typeof v === 'number' ? `$${v.toLocaleString('en-AU')}` : '[$]';
+  return typeof v === 'number' ? `$${v.toLocaleString('en-AU')}` : 'a free quote';
 };
 
 export const hasPrices = (): boolean => typeof prices.b1 === 'number' && typeof prices.b2 === 'number';
 
 export const recleanWindow = (): string =>
-  flags.reCleanWindowHours ? `within ${b('reCleanWindow', `${flags.reCleanWindowHours} hours`)}` : 'as fast as we can';
+  flags.reCleanWindowHours
+    ? `within ${b('reCleanWindow', `${flags.reCleanWindowHours} hours`)}`
+    : 'subject to team availability';
 
 export const guaranteeDays = (): string =>
   flags.guaranteeDays ? b('guaranteeDays', `${flags.guaranteeDays} days`) : 'the agreed period';
 
 export const carpetText = (): string =>
-  flags.freeCarpet ? b('freeCarpet', 'free with every full bond clean') : `an add-on from ${price('carpetRoom')} per room`;
+  flags.freeCarpet
+    ? b('freeCarpet', 'complimentary with every bond clean')
+    : `an add-on quoted per room`;
+
+export const bondBackText = (): string => business.bondBackGuarantee;
 
 export const insuranceText = (): string =>
   flags.insuranceAmount ? `${b('insurance', flags.insuranceAmount)} public liability insured` : 'Public liability insured';
@@ -52,6 +60,7 @@ const vars: Record<string, () => string> = {
   insurance: insuranceText,
   reclean: recleanWindow,
   guaranteeDays,
+  bondBack: bondBackText,
   carpet: carpetText,
   cancel: () => (flags.freeCancellationHours ? b('cancellation', `up to ${flags.freeCancellationHours} hours before`) : ''),
   name: () => business.name,

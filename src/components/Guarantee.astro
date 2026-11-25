@@ -11,13 +11,13 @@ const { h2 = 'Our bond back guarantee, in plain English', headingId = 'guarantee
         <img class="guarantee__seal-img" src="/images/brand/seal.svg" alt="Inspection Ready seal: the Bond Cleaning Brisbane Co. re-clean promise" width="260" height="260" loading="lazy" decoding="async" />
       </div>
       <div class="guarantee__copy">
-        <p class="eyebrow">The re-clean promise</p>
+        <p class="section-label">Bond Back Guarantee</p>
         <h2 id={headingId}>{h2}</h2>
-        <p class="lead" set:html={t("If your agent flags anything we cleaned, send us their list. We come back {reclean} and fix it free, until the agent signs off. It's written on your quote and invoice.")} />
+        <p class="lead" set:html={t('{bondBack}')} />
         <ul class="ticks guarantee__ticks">
           <li>Comes with every bond clean. Nothing to buy to "unlock" it.</li>
-          <li set:html={t('Runs until your final inspection, within {guaranteeDays} of the clean, so it never expires before the agent walks through.')} />
-          <li>Covers everything we cleaned. Not damage, repairs or fair wear and tear.</li>
+          <li set:html={t('Request within {guaranteeDays} of cleaning with your exit report.')} />
+          <li>Covers everything we cleaned. Not damage, repairs or fair wear and tear. Re-cleans are subject to team availability.</li>
         </ul>
         <div class="guarantee__cta">
           <a class="btn btn--secondary" href="/bond-back-guarantee/">Read the full guarantee terms <Icon name="arrowRight" /></a>

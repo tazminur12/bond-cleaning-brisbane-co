@@ -12,7 +12,13 @@ export const business = {
   name: 'Bond Cleaning Brisbane Co.',
   identity:
     'Bond Cleaning Brisbane Co. is a bond cleaning company in Brisbane that cleans rentals on the Northside and inner north for tenants moving out.',
-  positioning: "Brisbane Northside's bond cleaning specialists. Fixed price, photo-proof, inspection ready.",
+  positioning: "Brisbane Northside's bond cleaning specialists. Free quote, photo-proof, inspection ready.",
+  /**
+   * Bond Back Guarantee — Cleaner On The Go terms (word for word).
+   * Use everywhere the guarantee or re-clean period is mentioned.
+   */
+  bondBackGuarantee:
+    'Request within 5 days of cleaning with your exit report. Re-cleans are subject to team availability. Terms apply.',
   /** Display format — must match Google Business Profile and other listings */
   phone: '0485 904 699',
   /** International format for tel: links (no spaces), e.g. "+61485904699" */
@@ -45,11 +51,11 @@ export const business = {
 /** Unconfirmed promises. On by default with bracketed wording. */
 export const flags = {
   payAfter: true,
-  /** Hours we have to come back after the agent's list arrives. null = drop the time window wording. */
-  reCleanWindowHours: 24 as number | null,
-  /** Guarantee stays open for this many days after the clean (covers the inspection date). */
-  guaranteeDays: 7 as number | null,
-  /** true = carpet steam clean free with every full bond clean; false = priced per room */
+  /** Hours we have to come back after the agent's list arrives. null = subject to team availability (COTG). */
+  reCleanWindowHours: null as number | null,
+  /** Request window after the clean (COTG Bond Back Guarantee: 5 days). */
+  guaranteeDays: 5 as number | null,
+  /** true = complimentary carpet steam clean with every full bond clean */
   freeCarpet: true,
   sameDay: true,
   noWeekendSurcharge: true,
@@ -66,9 +72,9 @@ export const flags = {
 /** Set an entry to true once the owner confirms it; the [brackets] disappear from that wording. */
 export const confirmed: Record<string, boolean> = {
   payAfter: false,
-  reCleanWindow: false,
-  guaranteeDays: false,
-  freeCarpet: false,
+  reCleanWindow: true,
+  guaranteeDays: true,
+  freeCarpet: true,
   sameDay: false,
   noWeekendSurcharge: false,
   insurance: false,
@@ -84,8 +90,8 @@ export const confirmed: Record<string, boolean> = {
 };
 
 /**
- * Prices in AUD. null = not confirmed yet: the site shows "[$]" and the quote form
- * shows "We'll text your fixed price within [15 minutes]" instead of a price guide.
+ * Prices in AUD. All null = quote-based pricing (same as Cleaner On The Go).
+ * No fixed $ figures on the site; quote form asks for details instead of a price guide.
  */
 export const prices: Record<string, number | null> = {
   b1: null, // Studio / 1 bed, 1 bath
@@ -152,7 +158,7 @@ export const serviceGroups = [
 export const mainNav = [
   { label: 'Services', href: '/services/', mega: 'services' },
   { label: 'Areas', href: '/areas/', mega: 'areas' },
-  { label: 'Pricing', href: '/pricing/' },
+  { label: 'Get a Quote', href: '/pricing/' },
   { label: 'Our Work', href: '/our-work/' },
   { label: 'Reviews', href: '/reviews/' },
   { label: 'FAQ', href: '/faq/' },

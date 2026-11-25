@@ -10,8 +10,9 @@ export const carpet: ServiceContent[] = [
     tier: 2,
     short: 'Hot water extraction with the receipt',
     icon: 'droplet',
-    intro: `<p>In Queensland, carpets must be returned to the condition they were in at the start of your lease. If they were professionally cleaned when you moved in, or you had a pet, expect the agent to ask for a receipt. We steam clean with hot water extraction and give you the receipt. With a bond clean, carpet steam cleaning is {carpet}.</p>
-<p>Our end of lease carpet cleaning in Brisbane covers bedrooms, living areas and stairs across the Northside, booked on the same day as your bond clean. Prices are per room from {price:carpetRoom}, quoted in writing within {replyTime}.</p>`,
+    intro: `<p><strong>Complimentary with every bond clean. Also available on its own.</strong></p>
+<p>In Queensland, carpets must be returned to the condition they were in at the start of your lease. If they were professionally cleaned when you moved in, or you had a pet, expect the agent to ask for a receipt. We steam clean with hot water extraction and give you the receipt. With a bond clean, carpet steam cleaning is {carpet}.</p>
+<p>Our end of lease carpet cleaning in Brisbane covers bedrooms, living areas and stairs across the Northside, booked on the same day as your bond clean. Standalone carpet cleans are quoted in writing within {replyTime}.</p>`,
     heroPhoto: 'carpet',
     heroAlt: 'End of lease carpet cleaning Brisbane: bedroom carpet before and after steam cleaning during a Brisbane bond clean',
     photos: ['carpet'],
@@ -54,12 +55,12 @@ export const carpet: ServiceContent[] = [
       },
     ],
     price: {
-      h2: 'Carpet steam cleaning Brisbane prices',
-      html: '<p>Carpet steam cleaning is {carpet}. Stairs, hallways and large living areas are counted as rooms on your quote. Pet treatment for urine and odour is priced separately; see <a href="/pet-stain-odour-removal-brisbane/">pet stain and odour removal</a>.</p>',
+      h2: 'Carpet steam cleaning Brisbane quotes',
+      html: '<p>Carpet steam cleaning is {carpet}. Stairs, hallways and large living areas are counted as rooms on your quote. Pet treatment for urine and odour is quoted separately; see <a href="/pet-stain-odour-removal-brisbane/">pet stain and odour removal</a>.</p>',
     },
     faqs: [
       { id: 'cs1', q: 'Do I have to steam clean the carpets when I move out in QLD?', a: 'Only back to the condition at the start. If they were professionally cleaned at move-in or you agreed to it because of a pet, the agent can ask for it.' },
-      { id: 'cs2', q: 'Is carpet cleaning included in the bond clean?', a: '{?freeCarpet}[Yes, free with every full bond clean.]{/freeCarpet}{!freeCarpet}It\'s an add-on from {price:carpetRoom} per room.{/freeCarpet}' },
+      { id: 'cs2', q: 'Is carpet cleaning included in the bond clean?', a: '{?freeCarpet}Yes. Carpet steam cleaning is complimentary with every bond clean.{/freeCarpet}{!freeCarpet}It\'s an add-on quoted per room.{/freeCarpet}' },
       { id: 'cs3', q: 'How long do carpets take to dry?', a: 'Usually {dryCarpet} with windows open or the air-con on.' },
       { id: 'cs4', q: 'Will you give me a receipt?', a: 'Yes, an itemised receipt you can forward to your agent.' },
       { id: 'cs5', q: 'Can my agent make me use their carpet cleaner?', a: 'No. In Queensland you can choose your own carpet cleaner.' },

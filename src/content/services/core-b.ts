@@ -267,8 +267,9 @@ export const coreB: ServiceContent[] = [
     tier: 3,
     short: 'The re-clean promise, in plain English',
     icon: 'shield',
-    intro: `<p>If your agent flags anything we cleaned, send us their list and we come back and fix it free {reclean} of receiving it. The guarantee is written on your quote and invoice, with the conditions in plain English.</p>
-<p>This is our bond back guarantee cleaning promise for every bond clean in Brisbane: no extra fee, no add-on to unlock it, and it runs until your agent signs off. Bond cleans start at {price:b1}, priced within {replyTime}.</p>`,
+    intro: `<p><strong>Bond Back Guarantee:</strong> {bondBack}</p>
+<p>If your agent flags anything we cleaned, send us their list with your exit report. The guarantee is written on your quote and invoice, with the conditions in plain English.</p>
+<p>This is our bond back guarantee cleaning promise for every bond clean in Brisbane: no extra fee, no add-on to unlock it. Get a free quote within {replyTime}.</p>`,
     heroPhoto: 'shower',
     heroAlt: 'Bond back guarantee cleaning result: shower tiles and grout before and after end of lease cleaning in Brisbane',
     photos: ['shower', 'cupboard', 'fan'],
@@ -295,7 +296,7 @@ export const coreB: ServiceContent[] = [
         id: 'how-long',
         eyebrow: 'How long it lasts',
         h2: 'Until the agent signs off',
-        html: '<p>The guarantee runs until your agent\'s final inspection, as long as the inspection is within {guaranteeDays} of the clean. That covers the normal gap between handover and inspection, so it never expires before the agent walks through. If the agent sends a list, we come back {reclean}. If they flag something again after our re-clean, we come back again.</p>',
+        html: '<p>{bondBack} If the agent sends a list within {guaranteeDays} of the clean, we return and fix anything we cleaned. If they flag something again after our re-clean, we come back again, subject to team availability.</p>',
         component: 'seal',
         bg: 'sand',
       },
@@ -303,7 +304,7 @@ export const coreB: ServiceContent[] = [
         id: 'claim',
         eyebrow: 'How to claim',
         h2: 'Send us the list. That\'s it.',
-        html: `<ol><li><strong>Forward the agent's email or list</strong> by text, WhatsApp or email, with any photos they sent.</li><li><strong>We confirm a return time</strong> {reclean}, and arrange access with you or the agent.</li><li><strong>We fix every item we cleaned</strong> and photograph each one.</li><li><strong>You send the new photos to the agent.</strong> We repeat until they sign off.</li></ol>`,
+        html: `<ol><li><strong>Forward the agent's email or list and exit report</strong> by text, WhatsApp or email, within {guaranteeDays} of the clean.</li><li><strong>We confirm a return time</strong> (subject to team availability) and arrange access with you or the agent.</li><li><strong>We fix every item we cleaned</strong> and photograph each one.</li><li><strong>You send the new photos to the agent.</strong> We repeat until they sign off.</li></ol>`,
       },
       {
         id: 'not-covered',
@@ -328,18 +329,18 @@ export const coreB: ServiceContent[] = [
     ],
     price: {
       h2: 'What bond back guarantee cleaning costs you',
-      html: '<p>Nothing. It\'s part of every bond clean, from {price:b1} for a 1-bed unit. Compare that with "from $45" adverts that charge separately for the guarantee, the oven or the walls.</p>',
+      html: '<p>Nothing. It\'s part of every bond clean. Get a free quote for your property. Compare that with "from $45" adverts that charge separately for the guarantee, the oven or the walls.</p>',
     },
     faqs: [
       { id: 'bg1', q: 'Do I have to pay extra for the guarantee?', a: 'No. It comes with every bond clean. We never make the guarantee depend on buying add-ons.' },
-      { id: 'bg2', q: 'How long does the guarantee last?', a: "Until your agent's final inspection, as long as it's within {guaranteeDays} of the clean." },
-      { id: 'bg3', q: 'What happens if the agent finds something?', a: 'Send us their list. We come back {reclean} and fix anything we cleaned, free.' },
+      { id: 'bg2', q: 'How long does the guarantee last?', a: '{bondBack}' },
+      { id: 'bg3', q: 'What happens if the agent finds something?', a: 'Send us their list with your exit report. {bondBack}' },
       { id: 'bg4', q: "What isn't covered?", a: "Damage, fair wear and tear, marks that won't come off without repainting, and areas you didn't book." },
       { id: 'bg5', q: "Can you guarantee I'll get my full bond back?", a: 'No honest cleaner can, because the bond also covers rent and damage. We guarantee the clean, the photos and the re-clean.' },
       ...pick('F13', 'F2'),
     ],
     related: ['carpet-steam-cleaning-brisbane', 'oven-cleaning-brisbane', 'window-cleaning-brisbane', 'failed-inspection-reclean-brisbane'],
-    cta: { h2: 'A guarantee worth having.', p: 'Get a fixed price with the re-clean promise written on it.' },
+    cta: { h2: 'A guarantee worth having.', p: 'Get a free quote with the Bond Back Guarantee written on it.' },
     areasIntro: 'The same guarantee applies in every suburb we clean.',
   },
 

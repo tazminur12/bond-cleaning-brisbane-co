@@ -10,34 +10,40 @@ import AskBox from '../components/AskBox.astro';
 import CtaBand from '../components/CtaBand.astro';
 import PromiseChips from '../components/PromiseChips.astro';
 import PhotoFigure from '../components/PhotoFigure.astro';
-import { addons, priceRows, flags } from '../config/site';
+import { addons, priceRows, business } from '../config/site';
 import { pick } from '../data/faqs';
-import { t, price, flagOn } from '../lib/tpl';
+import { t, flagOn } from '../lib/tpl';
 import { faqPage } from '../lib/schema';
 
 const faqs = pick('B9', 'B10', 'B11', 'B12', 'B13', 'B15', 'F1', 'F22').filter((f) => !f.flag || flagOn(f.flag));
-const crumbs = [{ name: 'Home', href: '/' }, { name: 'Pricing', href: '/pricing/' }];
+const crumbs = [{ name: 'Home', href: '/' }, { name: 'Get a Quote', href: '/pricing/' }];
 const addonPrice = (a: (typeof addons)[number]) =>
-  a.freeWhen && flagOn(a.freeWhen) ? t('{carpet}') : `${a.unit === 'from' ? 'from ' : ''}${price(a.key)}${a.unit !== 'from' && a.unit !== 'each' ? ` ${a.unit}` : ''}`;
+  a.freeWhen && flagOn(a.freeWhen) ? t('{carpet}') : 'Included in your free quote';
 ---
-<BaseLayout title="Bond Cleaning Prices Brisbane | Bond Cleaning Brisbane Co." description="Bond cleaning prices in Brisbane, fixed by bedrooms and bathrooms. Price table, packages, add-ons and how long each clean takes. No hourly rates, no surprises on the day." crumbs={crumbs} schema={[faqPage(faqs)]} bodyClass="page-pricing">
-  <PageHero eyebrow="Fixed prices · Brisbane Northside" h1="Bond Cleaning Prices in Brisbane">
+<BaseLayout title="Bond Cleaning Quote Brisbane | Bond Cleaning Brisbane Co." description="Get a free bond cleaning quote in Brisbane. Every property is priced on your home and what you need — fixed quote, no hidden fees. Complimentary carpet steam cleaning with every bond clean." crumbs={crumbs} schema={[faqPage(faqs)]} bodyClass="page-pricing">
+  <PageHero eyebrow="Free quote · Brisbane Northside" h1="Get your free bond cleaning quote">
     <div class="lead">
-      <p set:html={t("Our bond cleans are a fixed price based on bedrooms, bathrooms and condition. Most Brisbane bond cleans land between about $250 and $600 before carpets. Here are ours, with what's included and what costs extra. Bond cleaning Brisbane prices start at {price:b1} for a studio or 1-bed, and your exact price comes back in writing within {replyTime} of your photos.")} />
+      <p>Every property is different, so we price each clean on your home and what you need. Tell us a few details and we'll send you a fixed quote, with no hidden fees.</p>
+      <p class="mb-0 muted">What we'll ask: property type · bedrooms and bathrooms · suburb · moving-out date · any extras (blinds, walls, balcony, garage)</p>
     </div>
+    <p class="hero-offer" set:html={t('<span aria-hidden="true">✓</span> Complimentary carpet steam cleaning with every bond clean')} />
     <PromiseChips />
-    <Fragment slot="aside"><QuoteForm id="qt" anchor location="pricing-top" /></Fragment>
+    <div class="btn-row btn-row--stack">
+      <a class="btn btn--primary btn--lg" href="#quote">Get a Free Quote</a>
+      <a class="btn btn--secondary btn--lg" href={`tel:${business.phoneE164}`} data-track="call_click" data-track-location="pricing-hero">Call {business.phone}</a>
+    </div>
+    <Fragment slot="aside"><QuoteForm id="qt" anchor location="pricing-top" title="Get a Free Quote" /></Fragment>
   </PageHero>
 
   <section class="section section--price surface-aqua" aria-labelledby="table-h2">
     <div class="container">
       <div class="section-head">
-        <p class="section-label">Price by bedrooms</p>
-        <h2 id="table-h2">Bond cleaning Brisbane prices by property size</h2>
-        <p>Fixed prices for a standard bond clean. Every price includes the oven, rangehood, bathrooms, inside cupboards, tracks, fans, skirting, walls spot cleaned, floors, the photo report and the re-clean promise.</p>
+        <p class="section-label">By property size</p>
+        <h2 id="table-h2">Bond cleaning quotes by property size</h2>
+        <p>Every quote includes the oven, rangehood, bathrooms, inside cupboards, tracks, fans, skirting, walls spot cleaned, floors, the photo report, complimentary carpet steam cleaning and the Bond Back Guarantee.</p>
       </div>
       <PriceCards />
-      <p class="price-note">Prices are for a property in normal lived-in condition. Very heavy build-up, extra bathrooms or a furnished property are priced from your photos, before you book.</p>
+      <p class="price-note">Very heavy build-up, extra bathrooms or a furnished property are reflected in your quote from photos, before you book.</p>
     </div>
   </section>
 
@@ -82,7 +88,7 @@ const addonPrice = (a: (typeof addons)[number]) =>
           <h3>What costs extra</h3>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Add-on</th><th>Price</th></tr></thead>
+              <thead><tr><th>Add-on</th><th>How it's priced</th></tr></thead>
               <tbody>{addons.map((a) => <tr><td>{a.name}</td><td set:html={addonPrice(a)} /></tr>)}</tbody>
             </table>
           </div>
@@ -150,7 +156,7 @@ const addonPrice = (a: (typeof addons)[number]) =>
           <select class="select" id="c-risk"><option value="0.15">Low (15%)</option><option value="0.3" selected>Medium (30%)</option><option value="0.5">High (50%)</option></select>
           <span class="hint">We assume an agent-arranged re-clean takes about $200 from your bond.</span>
         </div>
-        <div class="calc-result" role="status" aria-live="polite"><span>Your DIY cost is about</span><br /><strong data-calc-out>$713</strong><br /><span class="small">Compare it with your fixed price below. Ours includes the re-clean if anything we cleaned is flagged.</span></div>
+        <div class="calc-result" role="status" aria-live="polite"><span>Your DIY cost is about</span><br /><strong data-calc-out>$713</strong><br /><span class="small">Compare it with your free quote below. Ours includes the Bond Back Guarantee if anything we cleaned is flagged.</span></div>
       </form>
       <p class="calc-foot">Want the full answer? Read <a href="/blog/is-a-professional-bond-clean-worth-it/">is a professional bond clean worth it</a>.</p>
     </div>
@@ -165,8 +171,9 @@ const addonPrice = (a: (typeof addons)[number]) =>
 
   <section class="section quote-section surface-aqua" aria-labelledby="bq-h2">
     <div class="container">
-      <div class="section-head section-head--center"><p class="section-label">Your exact number</p><h2 id="bq-h2">Get your fixed price in writing</h2></div>
-      <QuoteForm id="qb" location="pricing-bottom" />
+      <div class="section-head section-head--center"><p class="section-label">Your exact number</p><h2 id="bq-h2">Get your free quote in writing</h2></div>
+      <p class="hero-offer hero-offer--center" set:html={t('<span aria-hidden="true">✓</span> Complimentary carpet steam cleaning with every bond clean')} />
+      <QuoteForm id="qb" location="pricing-bottom" title="Get a Free Quote" />
     </div>
   </section>
   <CtaBand quoteHref="#quote" />

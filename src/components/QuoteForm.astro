@@ -20,7 +20,7 @@ interface Props {
   suburb?: string;
   anchor?: boolean;
 }
-const { id = 'q', title = 'Get your fixed price', sub = 'Four taps, then your details. Takes under a minute.', location, suburb, anchor = false } = Astro.props;
+const { id = 'q', title = 'Get a Free Quote', sub = 'Four taps, then your details. Takes under a minute.', location, suburb, anchor = false } = Astro.props;
 const f = (name: string) => `${id}-${name}`;
 const suburbs = areaGroups.flatMap((g) => g.slugs).map((s) => areaBySlug(s).name);
 const guide = hasPrices() ? JSON.stringify({ prices, spread: priceGuideSpread }) : '';
@@ -90,14 +90,15 @@ const addons = ['Oven deep clean', 'Balcony', 'Garage', 'Wall washing', 'Mattres
             ))}
           </div>
         </fieldset>
-        <button class="btn btn--primary btn--block" type="button" data-next>Get my fixed price <Icon name="arrowRight" /></button>
+        <p class="form-offer" set:html={t('<span aria-hidden="true">✓</span> Complimentary carpet steam cleaning with every bond clean')} />
+        <button class="btn btn--primary btn--block" type="button" data-next>Get a Free Quote <Icon name="arrowRight" /></button>
       </div>
     </div>
 
     <div class="form-step" data-step="2">
       <div class="price-guide" data-guide-out role="status">
         <Icon name="clock" />
-        <span data-guide-text>We'll text your fixed price within {business.replyTime} during business hours.</span>
+        <span data-guide-text>We'll text your free quote within {business.replyTime} during business hours.</span>
       </div>
       <div class="form-step2">
         <div class="form-grid form-grid--2 form-step2__details">
@@ -197,7 +198,7 @@ const addons = ['Oven deep clean', 'Balcony', 'Garage', 'Wall washing', 'Mattres
           <label class="check"><input type="checkbox" name="consent" value="Yes" required id={f('consent')} />OK to contact me about this quote</label>
           <span class="error" data-consent-error></span>
           <div class="form-step2__actions">
-            <button class="btn btn--primary btn--lg" type="submit">Send for my fixed price</button>
+            <button class="btn btn--primary btn--lg" type="submit">Send for my free quote</button>
             <button class="form-back" type="button" data-back>← Back</button>
           </div>
         </div>

@@ -1,9 +1,10 @@
 ---
 import { priceRows } from '../config/site';
-import { price } from '../lib/tpl';
+import { hasPrices, price } from '../lib/tpl';
 interface Props { only?: string[] }
 const { only } = Astro.props;
 const rows = only ? priceRows.filter((r) => only.includes(r.key)) : priceRows;
+const priced = hasPrices();
 ---
 <div class="price-cards">
   {rows.map((r, i) => (
@@ -11,8 +12,8 @@ const rows = only ? priceRows.filter((r) => only.includes(r.key)) : priceRows;
       {r.popular && <span class="badge">Most booked</span>}
       <h3>{r.label}</h3>
       <p class="price-card__meta">{r.detail} · {r.time} · {r.crew}</p>
-      <p class="price-card__amount">{r.quoteOnly ? 'Quote' : price(r.key)} <small>fixed</small></p>
-      <a class:list={['btn btn--block', r.popular ? 'btn--primary' : 'btn--secondary']} href="/contact/#quote" data-quote-link>{price(r.key).includes('[') || r.quoteOnly ? 'Get price' : 'Book this clean'}</a>
+      <p class="price-card__amount">{priced && !r.quoteOnly ? <>{price(r.key)} <small>fixed</small></> : <>Free quote</>}</p>
+      <a class:list={['btn btn--block', r.popular ? 'btn--primary' : 'btn--secondary']} href="/pricing/#quote" data-quote-link>Get a Free Quote</a>
     </article>
   ))}
 </div>
