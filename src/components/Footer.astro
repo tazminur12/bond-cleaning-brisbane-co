@@ -3,6 +3,12 @@ import Icon from './Icon.astro';
 import { business } from '../config/site';
 import { telHref, mailHref } from '../lib/tpl';
 const year = new Date().getFullYear();
+const social = [
+  { href: 'https://www.facebook.com/profile.php?id=61596610421039', label: 'Facebook', icon: 'facebook' },
+  { href: 'https://www.instagram.com/bondcleanbrisbaneco/', label: 'Instagram', icon: 'instagram' },
+  { href: 'https://x.com/BondCleaningco', label: 'X (Twitter)', icon: 'twitter' },
+  { href: 'https://au.pinterest.com/brisbanebcc/', label: 'Pinterest', icon: 'pinterest' },
+].filter((s) => business.sameAs.includes(s.href));
 ---
 <footer class="site-footer on-navy">
   <div class="container">
@@ -16,6 +22,17 @@ const year = new Date().getFullYear();
           <li><Icon name="pin" /><span>{business.serviceArea}</span></li>
           <li><Icon name="clock" /><span>{business.hours}</span></li>
         </ul>
+        {social.length > 0 && (
+          <ul class="footer-social" aria-label="Social profiles">
+            {social.map((s) => (
+              <li>
+                <a href={s.href} target="_blank" rel="noopener me" aria-label={s.label}>
+                  <Icon name={s.icon} />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <nav class="footer-nav" aria-label="Footer">
         <div class="footer-col">
@@ -24,7 +41,7 @@ const year = new Date().getFullYear();
             <li><a href="/">Bond cleaning Brisbane</a></li>
             <li><a href="/services/">All services</a></li>
             <li><a href="/areas/">Areas we clean</a></li>
-            <li><a href="/pricing/">Prices</a></li>
+            <li><a href="/pricing/">Get a Quote</a></li>
             <li><a href="/our-work/">Before and after</a></li>
             <li><a href="/about/">About us</a></li>
             <li><a href="/reviews/">Reviews</a></li>

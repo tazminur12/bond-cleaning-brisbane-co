@@ -4722,6 +4722,34 @@ tbody tr:hover td { background: var(--mint-50); }
   margin-top: 3px;
 }
 .footer-nap strong { color: #fff; font-weight: 600; }
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+}
+.footer-social a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(220, 230, 238, 0.2);
+  color: #fff;
+  text-decoration: none;
+  transition: background-color .18s var(--ease), border-color .18s var(--ease);
+}
+.footer-social a:hover,
+.footer-social a:focus-visible {
+  background: rgba(61, 220, 151, 0.2);
+  border-color: rgba(61, 220, 151, 0.45);
+  color: #fff;
+  text-decoration: none;
+}
+.footer-social svg { width: 18px; height: 18px; }
 
 .footer-nav {
   display: grid;

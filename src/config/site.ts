@@ -40,11 +40,21 @@ export const business = {
   cutOff: '[2pm]',
   pestPartner: '[licensed pest control partner]',
   gbpReviewLink: '[GBP_REVIEW_LINK]',
-  /** Add the GBP, Facebook and Instagram URLs once they exist (used in schema sameAs and the footer). */
-  sameAs: [] as string[],
-  /** Analytics: add the GA4 or GTM ID at go-live. Empty = no analytics script is loaded. */
+  /**
+   * Social + GBP URLs for LocalBusiness sameAs and footer icons.
+   * Add the Google Business Profile URL here once it exists.
+   */
+  sameAs: [
+    'https://www.facebook.com/profile.php?id=61596610421039',
+    'https://www.instagram.com/bondcleanbrisbaneco/',
+    'https://x.com/BondCleaningco',
+    'https://au.pinterest.com/brisbanebcc/',
+  ] as string[],
+  /** Analytics: set GA4 measurement ID (G-XXXXXXXX) or GTM (GTM-XXXX) at go-live. Empty = no script. */
   ga4Id: '',
   gtmId: '',
+  /** Bing IndexNow key (file hosted at /{key}.txt). */
+  indexNowKey: 'bcbc-indexnow-7f3a9c2e',
   foundingYear: 2026,
 };
 

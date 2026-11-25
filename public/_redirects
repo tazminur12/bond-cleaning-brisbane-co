@@ -1,4 +1,7 @@
 # 301 redirects. Format: /old-path/  /new-path/  301
+# Primary domain is non-www (bondcleaningco.com). Force www → apex.
+https://www.bondcleaningco.com/*  https://bondcleaningco.com/:splat  301!
+
 # The homepage owns "bond cleaning brisbane", so this URL never gets its own page:
 /bond-cleaning-brisbane/          /                                   301
 /bond-cleaning-brisbane           /                                   301
